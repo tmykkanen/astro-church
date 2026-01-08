@@ -272,7 +272,7 @@ content:
                 options: { language: html }
               - name: bgImg
                 label: Background Image
-                type: image
+                type: boolean
           - name: cta
             label: CTA Button
             type: object
