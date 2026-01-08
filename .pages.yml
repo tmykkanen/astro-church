@@ -302,6 +302,19 @@ content:
               - name: description
                 label: Description
                 type: string
+          - name: give
+            label: Give
+            type: object
+            fields:
+              - name: heading
+                label: Heading
+                type: string
+              - name: description
+                label: Description
+                type: string
+              - name: link
+                label: Link
+                type: string
       - name: info
         label: Church Information
         type: object
