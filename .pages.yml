@@ -296,6 +296,12 @@ content:
                 label: Active
                 type: boolean
                 default: true
+              - name: heading
+                label: Heading
+                type: string
+              - name: description
+                label: Description
+                type: string
       - name: info
         label: Church Information
         type: object
