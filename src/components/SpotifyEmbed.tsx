@@ -8,6 +8,8 @@ import type {
 import { Skeleton } from "@/components/ui/skeleton";
 import { ButtonLink } from "./ButtonLink";
 
+import config from "@/_site-config.json";
+
 declare global {
   interface Window {
     onSpotifyIframeApiReady?: (api: SpotifyIframeApi) => void;
@@ -164,13 +166,19 @@ const SpotifyEmbed: FC<SpotifyEmbedProps> = ({
         <div
           className={`text-muted-foreground bg-background absolute top-0 left-0 flex w-full items-center justify-center rounded-md border text-sm ${isAudio ? "h-38" : "h-60 sm:h-80 md:h-100"}`}
         >
-          <ButtonLink
-            variant="link"
-            href={`https://www.youtube.com/@sojournerschurch7048/search?query=${query}`}
-            target="_blank"
-          >
-            No Spotify link available. Try our YouTube channel.
-          </ButtonLink>
+          {"youtube" in config.general ? (
+            <ButtonLink
+              variant="link"
+              href={`${config.general.youtube}/search?query=${query}`}
+              target="_blank"
+              aria-label="link to search youtube channel"
+            >
+              No Spotify link available. Click here to search our YouTube
+              channel.
+            </ButtonLink>
+          ) : (
+            <p>No Spotify link available.</p>
+          )}
         </div>
       )}
     </div>

@@ -27,6 +27,6 @@ const prepNavEntry = (item: ConfigMenuItem): NavEntry => {
       };
 };
 
-export const navEntries: NavEntry[] = config.menu.map((item) =>
+export const navEntries: NavEntry[] = config.header.menu.map((item) =>
   prepNavEntry(item),
 );

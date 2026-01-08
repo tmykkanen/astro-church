@@ -5,51 +5,49 @@ import SubscribeForm from "@/components/SubscribeForm/SubscribeForm";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
 
 import config from "@/_site-config.json";
+const { left, form, give } = config.footer;
 ---
 
 <footer class="bg-accent text-accent-foreground layout-base py-8">
   <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
     <section class="flex flex-col gap-8">
       <h2 class="sr-only">Address & Contact Info</h2>
-      <div class="flex flex-col gap-2">
-        <StyledText as="h3" variant="heading">Sundays at 10am</StyledText>
-        <address set:html={config.info.address} />
-      </div>
-      <div class="flex flex-col gap-2">
-        <StyledText as="h3" variant="heading">Contact Us</StyledText>
-        <address>
-          <a href="mailto:hello@sojourners.church">hello@sojourners.church</a>
-          <br />
-          <span set:html={config.info.phone} />
-        </address>
+      {
+        left.sections.map((section) => (
+          <div class="flex flex-col">
+            <StyledText
+              as="h3"
+              variant="heading"
+              className="pb-2"
+              set:html={section.heading}
+            />
+            <div set:html={section.description} />
+          </div>
+        ))
+      }
 
-        <SocialMediaLinks client:idle />
-      </div>
-    </section>
-    <section class="flex flex-col gap-4">
-      <div class="flex flex-col gap-2">
-        <StyledText as="h2" variant="heading"> Weekly Bulletin </StyledText>
-        <p>
-          Sign up to stay informed and connected to Sojourners Church weekly
-          happenings.
-        </p>
-      </div>
-      <SubscribeForm client:idle />
+      <SocialMediaLinks client:idle />
     </section>
 
+    {
+      form.active && (
+        <section class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
+            <StyledText as="h2" variant="heading" set:html={form.heading} />
+            <Markdown.Inline of={form.description} />
+          </div>
+          <SubscribeForm client:idle />
+        </section>
+      )
+    }
+
     <section class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">
-        <StyledText as="h2" variant="heading"> Give to Sojourners </StyledText>
-
-        <p>
-          Click below to set up a one time or recurring gift to Sojourners
-          Church.
-        </p>
+        <StyledText as="h2" variant="heading" set:html={give.heading} />
+        <Markdown.Inline of={give.description} />
       </div>
-      <ButtonLink
-        target="_blank"
-        href="https://give.tithe.ly/?formId=7ddcb78e-6865-11ee-90fc-1260ab546d11"
-        variant="footer-button">Give</ButtonLink
+      <ButtonLink target="_blank" href={give.link} variant="footer-button"
+        >Give</ButtonLink
       >
     </section>
   </div>

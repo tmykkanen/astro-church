@@ -1,13 +1,15 @@
 ---
+import { type ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import { ButtonLink } from "@/components/ButtonLink";
+import { StyledText } from "@/components/StyledText";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import config from "@/_site-config.json";
 
-import { ButtonLink } from "@/components/ButtonLink";
-import { StyledText } from "@/components/StyledText";
+const { hero, cta } = config.body;
 
-import bgImage from "@/assets/homepage-bg.webp";
+const bgImage = import.meta.glob<{ default: ImageMetadata }>(`src/assets/*`);
 ---
 
 <BaseLayout>
@@ -17,12 +19,16 @@ import bgImage from "@/assets/homepage-bg.webp";
       aria-labelledby="hero-heading"
     >
       <!-- BACKGROUND IMG -->
-      <Image
-        src={bgImage}
-        alt="Homepage background"
-        class="absolute inset-0 w-full h-full object-cover"
-        priority
-      />
+      {
+        "bgImage" in hero && (
+          <Image
+            src={bgImage[`/${hero.bgImage}`]()}
+            alt="Homepage background"
+            class="absolute inset-0 w-full h-full object-cover"
+            priority
+          />
+        )
+      }
 
       <!-- BACKGROUND OVERLAY -->
       <div
@@ -37,20 +43,20 @@ import bgImage from "@/assets/homepage-bg.webp";
           as="h2"
           id="hero-heading"
           variant="displayXL"
-          set:html={config.homepage.hero}
+          set:html={hero.text}
         />
-        <ButtonLink
-          variant="accent"
-          href={config.homepage.cta.link}
-          target="_blank"
-          className="w-full h-auto"
-        >
-          <StyledText
-            as="span"
-            variant="button"
-            set:html={config.homepage.cta.text}
-          />
-        </ButtonLink>
+        {
+          cta.text && (
+            <ButtonLink
+              variant="accent"
+              href={cta.link}
+              target="_blank"
+              className="w-full h-auto"
+            >
+              <StyledText as="span" variant="button" set:html={cta.text} />
+            </ButtonLink>
+          )
+        }
       </div>
     </section>
   </main>

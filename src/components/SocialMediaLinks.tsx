@@ -6,48 +6,74 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+interface SocialButtonProps {
+  name: string;
+  href: string;
+  icon: string;
+}
+
+interface SocialButtonWithTooltipProps extends SocialButtonProps {
+  hint: string;
+}
+
+import config from "@/_site-config.json";
+const { social } = config.footer.left;
+
 const SocialMediaLinks = () => {
   return (
     <div className="flex">
-      <ButtonLink
-        href="https://www.facebook.com/SojournersMN"
-        target="_blank"
-        aria-label="link to facebook page"
-        variant="footer-icon"
-      >
-        <Icon icon={"simple-icons:facebook"} />
-      </ButtonLink>
-      <ButtonLink
-        href="https://www.youtube.com/@sojournerschurch7048"
-        target="_blank"
-        aria-label="link to youtube"
-        variant="footer-icon"
-      >
-        <Icon icon={"simple-icons:youtube"} />
-      </ButtonLink>
-      <ButtonLink
-        href="https://open.spotify.com/show/4XUQE1mKNoKG2r4Ovr7FoQ?si=89b3897946374748"
-        target="_blank"
-        aria-label="link to spotify"
-        variant="footer-icon"
-      >
-        <Icon icon={"simple-icons:spotify"} />
-      </ButtonLink>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <ButtonLink
-            href="sms:+15075521595"
-            aria-label="click to send SMS"
-            variant="footer-icon"
-          >
-            <Icon icon={"material-symbols:sms"} />
-          </ButtonLink>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Click to send text message</p>
-        </TooltipContent>
-      </Tooltip>
+      {social.map(({ name, link, icon, hint }) =>
+        hint ? (
+          <SocialButtonWithTooltip
+            key={name}
+            name={name}
+            href={link}
+            icon={icon}
+            hint={hint}
+          />
+        ) : (
+          <SocialButton key={name} name={name} href={link} icon={icon} />
+        ),
+      )}
     </div>
+  );
+};
+
+const SocialButton: React.FC<SocialButtonProps> = ({ name, href, icon }) => {
+  return (
+    <ButtonLink
+      href={href}
+      target="_blank"
+      aria-label={`click link for ${name}`}
+      variant="footer-icon"
+    >
+      <Icon icon={icon} />
+    </ButtonLink>
+  );
+};
+
+const SocialButtonWithTooltip: React.FC<SocialButtonWithTooltipProps> = ({
+  name,
+  href,
+  icon,
+  hint,
+}) => {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <ButtonLink
+          href={href}
+          target="_blank"
+          aria-label={`click link for ${name}`}
+          variant="footer-icon"
+        >
+          <Icon icon={icon} />
+        </ButtonLink>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{hint}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

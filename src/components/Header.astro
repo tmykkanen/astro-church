@@ -2,8 +2,13 @@
 import { NavMenu } from "@/components/NavMenu";
 import { Sidebar } from "@/components/Sidebar";
 import { StyledText } from "@/components/StyledText";
+
 import config from "@/_site-config.json";
+const { header, general } = config;
+
 import { Image } from "astro:assets";
+import { type ImageMetadata } from "astro";
+const logoImage = import.meta.glob<{ default: ImageMetadata }>(`src/assets/*`);
 
 const currentPath = Astro.url.pathname;
 ---
@@ -13,15 +18,18 @@ const currentPath = Astro.url.pathname;
 >
   <div class="flex w-full items-center">
     {
-      "logo" in config.info ? (
+      "logo" in header ? (
         <a href="/" class="flex-1">
-          <Image src={config.info.logo} alt="logo" class={"max-h-18"} />
+          <h1 class="sr-only">{general.name}</h1>
+          <Image
+            src={logoImage[`/${header.logo}`]()}
+            alt="logo"
+            class={"max-h-18"}
+          />
         </a>
       ) : (
         <StyledText as="h1" variant="displayLG" className="flex-1">
-          <a href="/">
-            Sojourners <br class="hidden md:inline" /> Church
-          </a>
+          <a href="/">{general.name}</a>
         </StyledText>
       )
     }
