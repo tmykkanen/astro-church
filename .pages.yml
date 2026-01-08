@@ -237,13 +237,19 @@ content:
            - name: menu
              label: Menu
              type: object
-             list: true
+             list:
+                collapsible:
+                  collapsed: true
+                  summary: "{fields.title}"
              fields:
               - { name: title, label: Title, type: string }
               - name: subMenu
                 label: Sub Menu
                 type: object
-                list: true
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{fields.title}"
                 fields:
                   - { name: title, label: Title, type: string }
       - name: hero
