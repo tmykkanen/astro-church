@@ -267,8 +267,8 @@ content:
             label: Left
             type: object
             fields:
-              - name: section
-                label: Section
+              - name: sections
+                label: Sections
                 type: object
                 list: true
                 fields:
