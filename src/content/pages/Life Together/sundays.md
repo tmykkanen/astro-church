@@ -1,10 +1,11 @@
 ---
 title: Sundays
 ---
-
 # Sunday Worship
 
 Each Sunday, we meet together as Sojourners Church. Our gathering is a family gathering, and we love to have company join us. Come in comfortable clothes and with an open heart. Come, taste and see that the Lord is good and magnify his name with us (Psalm 34)!
+
+![](src/assets/jones-fam.jpg)
 
 ## What are your services like?
 
