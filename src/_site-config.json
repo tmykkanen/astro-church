@@ -41,7 +41,7 @@
       }
     ]
   },
-  "hero": "<span class=\\\"opacity-40\\\">We exist to be and make</span><br />\\n<span class=\\\"text-primary\\\">eternally joyful disciples</span><br />\\n<span class=\\\"opacity-40\\\">of Jesus Christ</span>",
+  "hero": "<span class=\"opacity-40\">We exist to be and make</span><br /><span class=\"text-primary\">eternally joyful disciples</span><br /><span class=\"opacity-40\">of Jesus Christ</span>",
   "cta": {
     "text": "10 am Sundays | Click here for livestream",
     "link": "http://youtube.com/channel/UC5HBSGOC-FxOa3-ERY5X6mw/live"
