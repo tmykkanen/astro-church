@@ -6,3 +6,7 @@
 - [ ] TODO: Add PagesCMS to /admin route
 - [ ] TODO: Consider replacing astro-icon
 - [ ] TODO: Confirm using relative urls
+- [ ] TODO: Add summary for collapsed items in PagesCMS
+
+- homepage bg image
+- youtube link
