@@ -8,6 +8,10 @@
       "useEvents": true,
       "eventsPath": "life-together/calendar"
     },
+    "blog": {
+      "useBlog": true,
+      "blogPath": "writings"
+    },
     "menu": [
       {
         "title": "About Us",
