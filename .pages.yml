@@ -284,7 +284,7 @@ content:
                 list:
                   collapsible:
                     collapsed: true
-                    summary: "{title} ({index})"
+                    summary: "{fields.name}"
                 fields:
                   - name: name
                     label: Name
