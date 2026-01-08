@@ -1,6 +1,9 @@
 {
-  "header": {
+  "general": {
     "name": "Sojourners Church",
+    "youtube": "https://www.youtube.com/@sojournerschurch7048"
+  },
+  "header": {
     "menu": [
       {
         "title": "About Us",
