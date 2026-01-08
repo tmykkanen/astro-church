@@ -281,7 +281,10 @@ content:
               - name: social
                 label: Social Icons
                 type: object
-                list: true
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title} ({index})"
                 fields:
                   - name: name
                     label: Name
