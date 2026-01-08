@@ -233,6 +233,7 @@ content:
         type: object
         fields: 
            - { name: name, label: Church Name, type: string }
+           - { name: logo, label: Logo, type: image }
            - name: menu
              label: Menu
              type: object
@@ -315,56 +316,4 @@ content:
               - name: link
                 label: Link
                 type: string
-      - name: info
-        label: Church Information
-        type: object
-        fields:
-          - { name: name, label: Church Name, type: string }
-          - {
-              name: address,
-              label: Church Address,
-              type: code,
-              options: { language: html },
-            }
-          - { name: phone, label: Church Phone, type: string }
-          - { name: logo, label: Logo, type: image }
-          - {
-              name: favicon,
-              label: Favicon,
-              type: image,
-              options: { media: public },
-            }
 
-      - name: homepage
-        label: Homepage Config
-        type: object
-        fields:
-          - {
-              name: hero,
-              label: Hero Text,
-              type: code,
-              options: { language: html },
-            }
-          - name: cta
-            label: CTA Button
-            type: object
-            fields:
-              - {
-                  name: text,
-                  label: CTA Text,
-                  type: code,
-                  options: { language: html },
-                }
-              - { name: link, label: CTA Link, type: string }
-      - name: menu
-        label: Menu
-        type: object
-        list: true
-        fields:
-          - { name: title, label: Title, type: string }
-          - name: subMenu
-            label: Sub Menu
-            type: object
-            list: true
-            fields:
-              - { name: title, label: Title, type: string }
