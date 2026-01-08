@@ -273,6 +273,7 @@ content:
               - name: isBgImage
                 label: Background Image
                 type: boolean
+                default: true
           - name: cta
             label: CTA Button
             type: object
