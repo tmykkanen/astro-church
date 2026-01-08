@@ -252,19 +252,23 @@ content:
                     summary: "{fields.title}"
                 fields:
                   - { name: title, label: Title, type: string }
-      - name: hero
-        label: Hero Text
-        type: code
-        options: { language: html }
-      - name: cta
-        label: CTA Button
+      - name: body
+        label: Body
         type: object
         fields:
-          - name: text
-            label: CTA Text
+          - name: hero
+            label: Hero Text
             type: code
             options: { language: html }
-          - { name: link, label: CTA Link, type: string }
+          - name: cta
+            label: CTA Button
+            type: object
+            fields:
+              - name: text
+                label: CTA Text
+                type: code
+                options: { language: html }
+              - { name: link, label: CTA Link, type: string }
       - name: footer
         label: Footer
         type: object
@@ -286,7 +290,8 @@ content:
                     type: string
                   - name: description
                     label: Description
-                    type: rich-text
+                    type: code
+                    options: { language: html }
               - name: social
                 label: Social Icons
                 type: object
