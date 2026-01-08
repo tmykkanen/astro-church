@@ -34,20 +34,11 @@ const Calendar = () => {
       plugins={[listPlugin, googleCalendarPlugin]}
       initialView="listMonth"
       contentHeight={"auto"}
-      // googleCalendarApiKey="AIzaSyC-NUPVkH4jRq8y8JEhIHShE2RJhXrOaEg"
       events={{
         googleCalendarId: PUBLIC_GOOGLE_CALENDAR_ID,
         googleCalendarApiKey: PUBLIC_GOOGLE_CALENDAR_API_KEY,
       }}
       ref={calendarRef}
-
-      // events={{
-      //   googleCalendarId:
-      //     "sojourners.church_jsgg63tl85edr0sceapunke178@group.calendar.google.com",
-      //   googleCalendarApiKey: "AIzaSyC-NUPVkH4jRq8y8JEhIHShE2RJhXrOaEg",
-      // }}
-      // eventClassNames={"hover:[&_a]:!decoration-primary"}
-      // viewClassNames={"[&_.fc_h2]:text-yellow-500"}
     />
   );
 };
