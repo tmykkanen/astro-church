@@ -270,7 +270,7 @@ content:
                 label: Hero Text
                 type: code
                 options: { language: html }
-              - name: hasBgImage
+              - name: isBgImage
                 label: Background Image
                 type: boolean
           - name: cta
