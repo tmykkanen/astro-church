@@ -51,7 +51,11 @@
       "section": [
         {
           "heading": "Sundays at 10am",
-          "description": "1679 West Main Street Skyline Plaza Albert Lea, MN 56007"
+          "description": "1679 West Main Street\n\nSkyline Plaza\n\nAlbert Lea, MN 56007"
+        },
+        {
+          "heading": "Contact Us",
+          "description": "[_hello@sojourners.church_](mailto:hello@sojourners.church)_  \n(507) 552-1595_"
         }
       ]
     },
