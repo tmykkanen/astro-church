@@ -1,0 +1,29 @@
+---
+// Single component to catch and render events path from settings
+import config from "@/_site-config.json";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Calendar from "@/components/Calendar";
+
+export const getStaticPaths = () => {
+  return [
+    {
+      params: {
+        events: config.header.events.eventsPath,
+      },
+    },
+  ];
+};
+
+// Prevent manually visiting the events path if events set to false
+if (!config.header.events.useEvents) {
+  return Astro.redirect("/404");
+}
+---
+
+<BaseLayout>
+  <main class="layout-base py-8">
+    <div>
+      <Calendar client:load />
+    </div>
+  </main>
+</BaseLayout>
