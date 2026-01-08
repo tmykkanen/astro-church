@@ -272,7 +272,7 @@ content:
                 options: { language: html }
               - name: bgImage
                 label: Background Image
-                description: Must be webp format and named hero-bg. Visit [https://squoosh.app/](https://squoosh.app/) to process images.
+                description: Must be webp format and named hero-bg. Visit https://squoosh.app/ to process images.
                 type: image
                 options:
                   extensions: [webp]
