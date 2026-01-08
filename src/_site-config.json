@@ -45,7 +45,10 @@
     ]
   },
   "body": {
-    "hero": "<span class='opacity-40'>Slogan: We exist to be and make</span><br /><span class='text-primary'>eternally joyful disciples</span><br /><span class='opacity-40'>of Jesus Christ</span>",
+    "hero": {
+      "text": "<span class='opacity-40'>Slogan: We exist to be and make</span><br /><span class='text-primary'>eternally joyful disciples</span><br /><span class='opacity-40'>of Jesus Christ</span>",
+      "bgImg": "src/assets/hero-bg.webp"
+    },
     "cta": {
       "text": "CTA: 10 am Sundays | Click here for livestream",
       "link": "#"
