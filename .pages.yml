@@ -245,6 +245,40 @@ content:
                 list: true
                 fields:
                   - { name: title, label: Title, type: string }
+      - name: hero
+        label: Hero Text
+        type: code
+        options: { language: html }
+      - name: cta
+        label: CTA Button
+        type: object
+        fields:
+          - name: text
+            label: CTA Text
+            type: code
+            options: { language: html }
+          - { name: link, label: CTA Link, type: string }
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - name: left
+            label: Left
+            type: object
+            fields:
+              - name: heading
+                label: description
+                type: string
+              - name: social
+                label: Social Icons
+                type: object
+                fields:
+                  - name: icon
+                    label: Icon
+                    type: string
+                  - name: link
+                    label: Link
+                    type: string
       - name: info
         label: Church Information
         type: object
