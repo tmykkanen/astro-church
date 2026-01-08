@@ -272,6 +272,7 @@ content:
               - name: social
                 label: Social Icons
                 type: object
+                list: true
                 fields:
                   - name: icon
                     label: Icon
