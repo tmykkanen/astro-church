@@ -272,6 +272,7 @@ content:
                 options: { language: html }
               - name: bgImage
                 label: Background Image
+                description: Must be webp format and named hero-bg. Visit https://squoosh.app/ to process images.
                 type: image
                 options:
                   extensions: [webp]
@@ -319,7 +320,8 @@ content:
                     label: Name
                     type: string
                   - name: icon
-                    label: Icon (name from https://iconify.design/)
+                    label: Icon
+                    description: Use name from https://iconify.design/
                     type: string
                   - name: link
                     label: Link
