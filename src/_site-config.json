@@ -60,18 +60,22 @@
       ],
       "social": [
         {
+          "name": "Facebook",
           "icon": "simple-icons:facebook",
           "link": "https://www.facebook.com/SojournersMN"
         },
         {
+          "name": "Youtube",
           "icon": "simple-icons:youtube",
           "link": "https://www.youtube.com/@sojournerschurch7048"
         },
         {
+          "name": "Spotify",
           "icon": "simple-icons:spotify",
           "link": "https://open.spotify.com/show/4XUQE1mKNoKG2r4Ovr7FoQ?si=89b3897946374748"
         },
         {
+          "name": "SMS",
           "icon": "sms:+15075521595",
           "link": "material-symbols:sms",
           "hint": "Click to send text message"
