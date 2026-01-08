@@ -1,7 +1,7 @@
 {
   "general": {
-    "name": "Sojourners Church",
-    "youtube": "https://www.youtube.com/@sojournerschurch7048"
+    "name": "Astro Church",
+    "youtube": "https://www.youtube.com/@CodinginPublic"
   },
   "header": {
     "menu": [
@@ -38,20 +38,17 @@
       },
       {
         "title": "Writings"
-      },
-      {
-        "title": "What is the gospel?"
       }
     ]
   },
   "body": {
     "hero": {
-      "text": "<span class='opacity-40'>We exist to be and make</span><br /><span class='text-primary'>eternally joyful disciples</span><br /><span class='opacity-40'>of Jesus Christ</span>",
+      "text": "<span class='opacity-40'>Free, open-source template</span><span class='text-primary'> for building great church websites</span><span class='opacity-40'> with Astro</span>",
       "bgImage": "src/assets/hero-bg.webp"
     },
     "cta": {
       "text": "10 am Sundays | Click here for livestream",
-      "link": "http://youtube.com/channel/UC5HBSGOC-FxOa3-ERY5X6mw/live"
+      "link": "https://www.youtube.com/watch?v=eQXG75XirdE"
     }
   },
   "footer": {
@@ -59,33 +56,33 @@
       "sections": [
         {
           "heading": "Sundays at 10am",
-          "description": "<address>1679 West Main Street<br />Skyline Plaza<br />Albert Lea, MN 56007</address>"
+          "description": "<address>3321 Stephens Hill Ln<br />Antioch, TN 37013</address>"
         },
         {
           "heading": "Contact Us",
-          "description": "<a href='mailto:hello@sojourners.church'>hello@sojourners.church</a><br />(507)552-1595"
+          "description": "<a href='mailto:notarealemail@astro.church'>notarealemail@astro.church</a><br />(123)456-7899"
         }
       ],
       "social": [
         {
           "name": "Facebook",
           "icon": "simple-icons:facebook",
-          "link": "https://www.facebook.com/SojournersMN"
+          "link": "https://www.facebook.com/tctnetwork"
         },
         {
           "name": "Youtube",
           "icon": "simple-icons:youtube",
-          "link": "https://www.youtube.com/@sojournerschurch7048"
+          "link": "https://www.youtube.com/@CodinginPublic"
         },
         {
           "name": "Spotify",
           "icon": "simple-icons:spotify",
-          "link": "https://open.spotify.com/show/4XUQE1mKNoKG2r4Ovr7FoQ?si=89b3897946374748"
+          "link": "https://open.spotify.com/artist/16QSVsPKl743hu4U5C18R8?si=Cl-bBnERRfCzrMZVwbul9w"
         },
         {
           "name": "SMS",
           "icon": "material-symbols:sms",
-          "link": "sms:+15075521595",
+          "link": "sms:+1234567899",
           "hint": "Click to send text message"
         }
       ]
@@ -93,12 +90,12 @@
     "form": {
       "active": true,
       "heading": "Weekly Bulletin",
-      "description": "Sign up to stay informed and connected to Sojourners Church weekly happenings."
+      "description": "Sign up to stay informed and connected to Astro Church weekly happenings."
     },
     "give": {
-      "heading": "Give to Sojourners",
-      "description": "Click below to set up a one time or recurring gift to Sojourners Church.",
-      "link": "https://give.tithe.ly/?formId=7ddcb78e-6865-11ee-90fc-1260ab546d11"
+      "heading": "Give to Astro Church",
+      "description": "Click below to set up a one time or recurring gift to Astro Church.",
+      "link": "https://get.tithe.ly/"
     }
   }
 }
