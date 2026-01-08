@@ -251,6 +251,17 @@ content:
                  label: Events Path
                  description: Enter the path using a slugified relative url (e.g. "life-together/calendar") matching the menu position of the events link below.
                  type: string
+           - name: blog
+             label: Blog Settings
+             type: object
+             fields:
+               - name: useBlog
+                 label: Use Blog
+                 type: boolean
+               - name: blogPath
+                 label: Blog Path
+                 description: Enter the path using a slugified relative url (e.g. "about/musings") matching the menu position of the blog link below.
+                 type: string
            - name: menu
              label: Menu
              type: object
