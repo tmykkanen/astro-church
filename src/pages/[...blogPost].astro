@@ -5,15 +5,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Meta from "@/components/Meta";
 import MarkdownContentWrapper from "@/components/MarkdownContentWrapper.astro";
 import { StyledText } from "@/components/StyledText";
-import config from "@/_site-config.json";
+import { blogPath } from "@/lib/nav";
 
 import type { GetStaticPaths } from "astro";
 
-// Destructure needed values
-const { useBlog } = config.general.blog;
-
 // Prevent manually visiting the path if option set to false
-if (!useBlog) {
+if (!blogPath) {
   return Astro.redirect("/404");
 }
 
@@ -21,7 +18,7 @@ if (!useBlog) {
 export const getStaticPaths = (async () => {
   return (await getCollection("writings")).map((page) => ({
     params: {
-      blogPost: `${config.general.blog.blogPath}/${page.id}`,
+      blogPost: `${blogPath?.path}/${page.id}`,
     },
     props: {
       page,

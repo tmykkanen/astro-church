@@ -1,13 +1,15 @@
 import * as React from "react";
+
+import Meta from "@/components/Meta";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  isSermon,
-  isWriting,
   type SermonData,
   type WritingsData,
+  isSermon,
+  isWriting,
 } from "@/lib/types";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { StyledText } from "../StyledText";
-import Meta from "@/components/Meta";
 
 interface CardCustomProps {
   baseUrl: string;
@@ -26,7 +28,7 @@ const CardCustom: React.FC<CardCustomProps> = ({
   return (
     <Card className="bg-muted rounded-sm border-none py-0 shadow-sm">
       <CardContent className="flex flex-row p-0">
-        <a href={`${baseUrl}${id}`} className="flex max-h-48 w-full flex-row">
+        <a href={`${baseUrl}/${id}`} className="flex max-h-48 w-full flex-row">
           {isSermon(inputData) && (
             <img
               src={inputData.series.data.imageSquare}

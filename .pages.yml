@@ -234,36 +234,6 @@ content:
         fields:
           - { name: name, label: Church Name, type: string }
           - { name: youtube, label: YouTube Channel, type: string }
-          - name: events
-            label: Events Page
-            type: object
-            fields:
-              - name: useEvents
-                label: Use Events Page
-                type: boolean
-              - name: eventsLabel
-                label: Events Label
-                type: string
-                description: Typically matches the name of the events page link in the menu.
-              - name: eventsPath
-                label: Events Path
-                description: Enter the path using a slugified relative url (e.g. "life-together/calendar") matching the menu path of the events link in the menu settings.
-                type: string
-          - name: blog
-            label: Blog Settings
-            type: object
-            fields:
-              - name: useBlog
-                label: Use Blog
-                type: boolean
-              - name: blogLabel
-                label: Blog Label
-                type: string
-                description: Typically matches the name of the blog page link in the menu.
-              - name: blogPath
-                label: Blog Path
-                description: Enter the path using a slugified relative url (e.g. "about-us/musings") matching the menu path of the blog link in the menu settings.
-                type: string
       - name: header
         label: Header
         type: object
@@ -281,8 +251,9 @@ content:
               - name: type
                 label: Type
                 type: select
+                description: Ensure you only select Blog and Events ONCE EACH in the whole menu
                 options:
-                  values: [ Blog, Events ]
+                  values: [Blog, Events]
               - name: subMenu
                 label: Sub Menu
                 type: object
@@ -292,6 +263,12 @@ content:
                     summary: "{fields.title}"
                 fields:
                   - { name: title, label: Title, type: string }
+                  - name: type
+                    label: Type
+                    type: select
+                    description: Ensure you only select Blog and Events ONCE EACH in the whole menu
+                    options:
+                      values: [Blog, Events]
       - name: body
         label: Body
         type: object

@@ -1,17 +1,7 @@
 {
   "general": {
     "name": "Astro Church",
-    "youtube": "https://www.youtube.com/@CodinginPublic",
-    "events": {
-      "useEvents": true,
-      "eventsLabel": "Calendar",
-      "eventsPath": "life-together/calendar"
-    },
-    "blog": {
-      "useBlog": true,
-      "blogLabel": "Blog",
-      "blogPath": "blog"
-    }
+    "youtube": "https://www.youtube.com/@CodinginPublic"
   },
   "header": {
     "menu": [
@@ -42,7 +32,8 @@
             "title": "Church Membership"
           },
           {
-            "title": "Calendar"
+            "title": "Calendar",
+            "type": "Events"
           }
         ]
       },
@@ -50,7 +41,7 @@
         "title": "Sermons"
       },
       {
-        "title": "Blog",
+        "title": "Musing",
         "type": "Blog"
       }
     ]

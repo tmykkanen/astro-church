@@ -1,35 +1,34 @@
+import { useStore } from "@nanostores/react";
 import * as React from "react";
-import { CardCustom } from "./CardCustom";
+
 import config from "@/_site-config.json";
+import { $allSermonData, $filteredSermons } from "@/lib/nanostoreSermons";
+import { $allWritingsData, $filteredWritings } from "@/lib/nanostoreWritings";
 import {
-  isSermonCollection,
-  isWritingsCollection,
   type SermonData,
   type WritingsData,
+  isSermonCollection,
+  isWritingsCollection,
 } from "@/lib/types";
-import { useStore } from "@nanostores/react";
 
-import { $filteredSermons, $allSermonData } from "@/lib/nanostoreSermons";
-import { $filteredWritings, $allWritingsData } from "@/lib/nanostoreWritings";
+import { CardCustom } from "./CardCustom";
 
 interface CardDisplayProps {
   data: SermonData[] | WritingsData[];
+  baseUrl: string;
 }
 
-const CardDisplay: React.FC<CardDisplayProps> = ({ data }) => {
-  let filteredPosts, baseUrl: string;
+const CardDisplay: React.FC<CardDisplayProps> = ({ data, baseUrl }) => {
+  let filteredPosts;
 
   if (isSermonCollection(data)) {
     $allSermonData.set(data);
     filteredPosts = useStore($filteredSermons);
-    baseUrl = "/sermons/";
   }
 
   if (isWritingsCollection(data)) {
     $allWritingsData.set(data);
     filteredPosts = useStore($filteredWritings);
-    baseUrl = "/writings/";
-    baseUrl = `/${config.general.blog.blogPath}/`;
   }
 
   return (

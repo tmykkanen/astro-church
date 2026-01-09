@@ -2,21 +2,18 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Filter from "@/components/Filters/Filter";
 import { CardDisplay } from "@/components/Cards/CardDisplay";
-import config from "@/_site-config.json";
+import { blogPath } from "@/lib/nav";
 
 import type { GetStaticPaths } from "astro";
 
-// Destructure needed values
-const { useBlog, blogLabel } = config.general.blog;
-
 // Prevent manually visiting the path if option set to false
-if (!useBlog) {
+if (!blogPath) {
   return Astro.redirect("/404");
 }
 
 // Get static paths
 export const getStaticPaths = (async () => {
-  return [{ params: { blogRoot: config.general.blog.blogPath } }];
+  return [{ params: { blogRoot: blogPath?.path } }];
 }) satisfies GetStaticPaths;
 
 import { getCollection } from "astro:content";
@@ -39,11 +36,11 @@ const getTags = () => {
 };
 ---
 
-<BaseLayout pageTitle={blogLabel || "Blog"}>
+<BaseLayout pageTitle={blogPath.label || "Blog"}>
   <main class="layout-base gap-8 py-8">
     <section class="flex flex-col gap-2">
       <Filter {allWritings} allTags={getTags()} client:only="react" />
-      <CardDisplay data={allWritings} client:load />
+      <CardDisplay data={allWritings} baseUrl={blogPath.path} client:load />
     </section>
   </main>
 </BaseLayout>

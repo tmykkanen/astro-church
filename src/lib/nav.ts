@@ -1,8 +1,10 @@
-import config from "@/_site-config.json";
 import slugify from "slugify";
 
-type ConfigMenuItem = {
+import config from "@/_site-config.json";
+
+export type ConfigMenuItem = {
   title: string;
+  type?: string;
   subMenu?: ConfigMenuItem[];
 };
 
@@ -11,6 +13,11 @@ export interface NavEntry {
   path: string;
   subMenu?: NavEntry[];
 }
+
+export type DynamicPath = {
+  label: string;
+  path: string;
+};
 
 const prepNavEntry = (item: ConfigMenuItem): NavEntry => {
   return item.subMenu
@@ -30,3 +37,29 @@ const prepNavEntry = (item: ConfigMenuItem): NavEntry => {
 export const navEntries: NavEntry[] = config.header.menu.map((item) =>
   prepNavEntry(item),
 );
+
+const findPathByType = (
+  menuItemsArray: ConfigMenuItem[],
+  targetType: string,
+): DynamicPath | undefined => {
+  for (const menuItem of menuItemsArray) {
+    if (menuItem.type === targetType) {
+      return {
+        label: menuItem.title,
+        path: slugify(menuItem.title).toLowerCase(),
+      };
+    }
+    if (menuItem.subMenu && Array.isArray(menuItem.subMenu)) {
+      const subMenuItem = findPathByType(menuItem.subMenu, targetType);
+      if (subMenuItem) {
+        return {
+          label: subMenuItem.label,
+          path: `${slugify(menuItem.title).toLowerCase()}/${subMenuItem.path}`,
+        };
+      }
+    }
+  }
+};
+
+export const eventsPath = findPathByType(config.header.menu, "Events");
+export const blogPath = findPathByType(config.header.menu, "Blog");

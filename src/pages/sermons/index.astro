@@ -63,7 +63,7 @@ const latestSermonDateFormatted = datefnsFormat(
         {allPreachersData}
         client:only="react"
       />
-      <CardDisplay data={allSermonData} client:load />
+      <CardDisplay data={allSermonData} baseUrl="sermons" client:load />
     </section>
   </main>
 </BaseLayout>
