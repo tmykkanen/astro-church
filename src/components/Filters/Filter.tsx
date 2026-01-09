@@ -1,20 +1,19 @@
+import { Settings2, Undo2 } from "lucide-react";
 import { type FC } from "react";
+
+import Combobox from "@/components/Filters/Combobox";
+import DatePickerCustom from "@/components/Filters/DatePickerCustom";
+import Search from "@/components/Filters/Search";
+import { getFilterTitle } from "@/components/Filters/getFilterTitle";
+import { StyledText } from "@/components/StyledText";
+import { Button } from "@/components/ui/button";
+import { useFilters } from "@/lib/hooks/useFilters";
 import type {
+  BlogData,
   PreacherData,
   SeriesData,
   SermonData,
-  WritingsData,
 } from "@/lib/types";
-
-import { StyledText } from "@/components/StyledText";
-import Search from "@/components/Filters/Search";
-import Combobox from "@/components/Filters/Combobox";
-import DatePickerCustom from "@/components/Filters/DatePickerCustom";
-import { Button } from "@/components/ui/button";
-
-import { Settings2, Undo2 } from "lucide-react";
-import { useFilters } from "@/lib/hooks/useFilters";
-import { getFilterTitle } from "@/components/Filters/getFilterTitle";
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
@@ -23,7 +22,7 @@ interface FilterProps {
   allSermonData?: SermonData[];
   allSeriesData?: SeriesData[];
   allPreachersData?: PreacherData[];
-  allWritings?: WritingsData[];
+  allWritings?: BlogData[];
   allTags?: string[] | null;
 }
 
@@ -52,14 +51,14 @@ const Filter: FC<FilterProps> = ({
     from: filters.from.value ?? undefined,
     to: filters.to.value ?? undefined,
     sermonSearchTerm: filters.sermonSearchTerm.value ?? undefined,
-    writingsSearchTerm: filters.writingsSearchTerm.value ?? undefined,
+    blogSearchTerm: filters.blogSearchTerm.value ?? undefined,
   };
 
   /* ------------------------------------------------------------------------ */
   /*                              Derived Values                              */
   /* ------------------------------------------------------------------------ */
 
-  const type = allSermonData ? "sermons" : "writings";
+  const type = allSermonData ? "sermons" : "blog";
 
   const titleText = getFilterTitle({
     ...normalizedFilters,

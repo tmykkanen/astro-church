@@ -1,5 +1,5 @@
-import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { defineCollection, reference, z } from "astro:content";
 // import formatOsis from "@/lib/bible-reference-formatter/en";
 import osisToEn from "bible-reference-formatter";
 
@@ -145,8 +145,8 @@ const pagesCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
 });
 
-const writingsCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/writings" }),
+const blogCollection = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -159,5 +159,5 @@ export const collections = {
   series: seriesCollection,
   preachers: preachersCollection,
   pages: pagesCollection,
-  writings: writingsCollection,
+  blog: blogCollection,
 };

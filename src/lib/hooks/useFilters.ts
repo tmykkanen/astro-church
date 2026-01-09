@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useNanostoreURLSync } from "@/lib/hooks/useNanostoreURLSync";
 
 interface FilterEntry<T> {
@@ -13,7 +14,7 @@ interface Filters {
   from: FilterEntry<Date>;
   to: FilterEntry<Date>;
   sermonSearchTerm: FilterEntry<string>;
-  writingsSearchTerm: FilterEntry<string>;
+  blogSearchTerm: FilterEntry<string>;
 }
 
 export const useFilters = () => {
@@ -24,7 +25,7 @@ export const useFilters = () => {
     from: useNanostoreURLSync<Date>("from"),
     to: useNanostoreURLSync<Date>("to"),
     sermonSearchTerm: useNanostoreURLSync<string>("sermonSearchTerm"),
-    writingsSearchTerm: useNanostoreURLSync<string>("writingsSearchTerm"),
+    blogSearchTerm: useNanostoreURLSync<string>("blogSearchTerm"),
   };
 
   const hasActiveFilters = Object.values(filters).some(

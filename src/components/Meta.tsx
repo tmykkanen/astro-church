@@ -1,10 +1,12 @@
-import * as React from "react";
-import { format as datefnsFormat } from "date-fns";
-import { Badge } from "@/components/ui/badge";
 // import formatOsis from "@/lib/bible-reference-formatter/en";
 import osisToEn from "bible-reference-formatter";
-import useIsMobile from "@/lib/hooks/useIsMobile";
+import { format as datefnsFormat } from "date-fns";
+import * as React from "react";
 import slugify from "slugify";
+
+import { Badge } from "@/components/ui/badge";
+import useIsMobile from "@/lib/hooks/useIsMobile";
+import { blogPath } from "@/lib/nav";
 
 interface MetaProps {
   date?: Date;
@@ -75,7 +77,11 @@ const Meta: React.FC<MetaProps> = ({
     tags.forEach((tag) =>
       metaItems.push(
         linked ? (
-          <a href={`/writings/?tag=${tag}`} className="not-prose" key={tag}>
+          <a
+            href={`/${blogPath?.path}/?tag=${tag}`}
+            className="not-prose"
+            key={tag}
+          >
             {tag}
           </a>
         ) : (

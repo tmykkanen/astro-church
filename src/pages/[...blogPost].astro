@@ -12,7 +12,7 @@ import type { GetStaticPaths } from "astro";
 // Get static paths
 export const getStaticPaths = (async () => {
   return blogPath
-    ? (await getCollection("writings")).map((page) => ({
+    ? (await getCollection("blog")).map((page) => ({
         params: {
           blogPost: `${blogPath?.path}/${page.id}`,
         },

@@ -190,10 +190,10 @@ content:
               "Jude",
               "Revelation",
             ]
-  - name: writings
-    label: Writings
+  - name: blog
+    label: Blog
     type: collection
-    path: src/content/writings
+    path: src/content/blog
     filename: "{fields.date}-{fields.title}.md"
     fields:
       - { name: title, label: Title, type: string, required: true }

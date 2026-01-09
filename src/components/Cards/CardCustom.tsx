@@ -3,8 +3,8 @@ import * as React from "react";
 import Meta from "@/components/Meta";
 import { Card, CardContent } from "@/components/ui/card";
 import {
+  type BlogData,
   type SermonData,
-  type WritingsData,
   isSermon,
   isWriting,
 } from "@/lib/types";
@@ -13,7 +13,7 @@ import { StyledText } from "../StyledText";
 
 interface CardCustomProps {
   baseUrl: string;
-  data: SermonData | WritingsData;
+  data: SermonData | BlogData;
 }
 
 const CardCustom: React.FC<CardCustomProps> = ({

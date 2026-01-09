@@ -1,22 +1,23 @@
-import { useEffect } from "react";
+import { parseDate } from "@internationalized/date";
 import { useStore } from "@nanostores/react";
+import { useEffect } from "react";
+
+import {
+  $blogFilterParams,
+  type BlogFilterParamsValue,
+  isBlogFilterKey,
+} from "@/lib/nanostoreBlog";
 import {
   $sermonFilterParams,
-  isSermonFilterKey,
   type SermonFilterParamsValue,
+  isSermonFilterKey,
 } from "@/lib/nanostoreSermons";
-import {
-  $writingsFilterParams,
-  isWritingsFilterKey,
-  type WritingsFilterParamsValue,
-} from "@/lib/nanostoreWritings";
 import { isDateValue } from "@/lib/types";
-import { parseDate } from "@internationalized/date";
 
 type FilterKey = string;
 // type FilterKey =
 //   | keyof SermonFilterParamsValue
-//   | keyof WritingsFilterParamsValue;
+//   | keyof BlogFilterParamsValue;
 
 const normalize = <T>(value: T | null | undefined) =>
   value === "" || value === null ? undefined : value;
@@ -27,9 +28,9 @@ const normalize = <T>(value: T | null | undefined) =>
  */
 export const useNanostoreURLSync = <T = any>(key: FilterKey) => {
   const isSermonKey = isSermonFilterKey(key as string);
-  const isWritingKey = isWritingsFilterKey(key as string);
+  const isWritingKey = isBlogFilterKey(key as string);
 
-  const store = isSermonKey ? $sermonFilterParams : $writingsFilterParams;
+  const store = isSermonKey ? $sermonFilterParams : $blogFilterParams;
   const storeValueRaw = useStore(store);
 
   // Narrow the value properly
@@ -38,8 +39,8 @@ export const useNanostoreURLSync = <T = any>(key: FilterKey) => {
     const sermonStore = storeValueRaw as SermonFilterParamsValue;
     storeValue = sermonStore[key as keyof SermonFilterParamsValue];
   } else if (isWritingKey) {
-    const writingStore = storeValueRaw as WritingsFilterParamsValue;
-    storeValue = writingStore[key as keyof WritingsFilterParamsValue];
+    const blogStore = storeValueRaw as BlogFilterParamsValue;
+    storeValue = blogStore[key as keyof BlogFilterParamsValue];
   }
 
   const setValue = (value: T | null | undefined) => {
@@ -51,8 +52,8 @@ export const useNanostoreURLSync = <T = any>(key: FilterKey) => {
         normalized as any,
       );
     } else if (isWritingKey && !isDateValue(normalized)) {
-      $writingsFilterParams.setKey(
-        key as keyof WritingsFilterParamsValue,
+      $blogFilterParams.setKey(
+        key as keyof BlogFilterParamsValue,
         normalized as any,
       );
     }

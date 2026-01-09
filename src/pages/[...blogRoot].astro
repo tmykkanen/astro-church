@@ -11,7 +11,7 @@ export const getStaticPaths = () => {
   return blogPath ? [{ params: { blogRoot: blogPath.path } }] : [];
 };
 
-const allWritings = (await getCollection("writings")).sort(
+const allWritings = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 

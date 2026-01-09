@@ -1,20 +1,20 @@
-import type { PreacherData, SeriesData, WritingsData } from "@/lib/types";
+import type { BlogData, PreacherData, SeriesData } from "@/lib/types";
 
 interface Params {
-  writingsSearchTerm?: string;
+  blogSearchTerm?: string;
   sermonSearchTerm?: string;
   tag?: string;
   series?: string;
   preacher?: string;
   from?: Date;
   to?: Date;
-  allWritings?: WritingsData[];
+  allWritings?: BlogData[];
   allSeriesData?: SeriesData[];
   allPreachersData?: PreacherData[];
 }
 
 export const getFilterTitle = ({
-  writingsSearchTerm,
+  blogSearchTerm,
   sermonSearchTerm,
   tag,
   series,
@@ -25,7 +25,7 @@ export const getFilterTitle = ({
   allSeriesData,
   allPreachersData,
 }: Params) => {
-  if (writingsSearchTerm) return `Posts matching ${writingsSearchTerm}`;
+  if (blogSearchTerm) return `Posts matching ${blogSearchTerm}`;
   if (tag) return `Posts tagged with ${tag}`;
   if (allWritings) return "All Posts";
 

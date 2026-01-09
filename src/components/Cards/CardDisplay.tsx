@@ -1,12 +1,11 @@
 import { useStore } from "@nanostores/react";
 import * as React from "react";
 
-import config from "@/_site-config.json";
+import { $allBlogData, $filteredBlog } from "@/lib/nanostoreBlog";
 import { $allSermonData, $filteredSermons } from "@/lib/nanostoreSermons";
-import { $allWritingsData, $filteredWritings } from "@/lib/nanostoreWritings";
 import {
+  type BlogData,
   type SermonData,
-  type WritingsData,
   isSermonCollection,
   isWritingsCollection,
 } from "@/lib/types";
@@ -14,7 +13,7 @@ import {
 import { CardCustom } from "./CardCustom";
 
 interface CardDisplayProps {
-  data: SermonData[] | WritingsData[];
+  data: SermonData[] | BlogData[];
   baseUrl: string;
 }
 
@@ -27,8 +26,8 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ data, baseUrl }) => {
   }
 
   if (isWritingsCollection(data)) {
-    $allWritingsData.set(data);
-    filteredPosts = useStore($filteredWritings);
+    $allBlogData.set(data);
+    filteredPosts = useStore($filteredBlog);
   }
 
   return (
