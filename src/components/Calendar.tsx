@@ -1,9 +1,8 @@
-import { useHotkeys } from "react-hotkeys-hook";
-
-import FullCalendar from "@fullcalendar/react";
-import listPlugin from "@fullcalendar/list";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
+import listPlugin from "@fullcalendar/list";
+import FullCalendar from "@fullcalendar/react";
 import { useRef } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const { PUBLIC_GOOGLE_CALENDAR_ID, PUBLIC_GOOGLE_CALENDAR_API_KEY } =
   import.meta.env;
