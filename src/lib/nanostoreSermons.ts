@@ -1,11 +1,11 @@
-import { map, computed, atom } from "nanostores";
 import type { DateValue } from "@internationalized/date";
-import type { SermonData } from "@/lib/types";
-import Fuse from "fuse.js";
-
 // Import bcv_parser to parse scripture reference
 import { bcv_parser } from "bible-passage-reference-parser/esm/bcv_parser.js";
 import * as lang from "bible-passage-reference-parser/esm/lang/en.js";
+import Fuse from "fuse.js";
+import { atom, computed, map } from "nanostores";
+
+import type { SermonData } from "@/lib/types";
 
 const bcv = new bcv_parser(lang);
 bcv.set_options({
@@ -37,8 +37,7 @@ const sermonSearchOptions = {
   includeScore: true,
   keys: [
     { name: "data.title", weight: 0.7 },
-    { name: "data.scripture", weight: 0.5 },
-    { name: "preacher.data.name", weight: 0.2 },
+    { name: "preacher.data.name", weight: 0.3 },
   ],
 };
 
