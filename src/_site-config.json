@@ -50,7 +50,8 @@
         "title": "Sermons"
       },
       {
-        "title": "Blog"
+        "title": "Blog",
+        "type": "Blog"
       }
     ]
   },
