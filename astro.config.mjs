@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
+import reactCompilerPlugin from "babel-plugin-react-compiler";
 
 // deploy adapter
 import netlify from "@astrojs/netlify";
@@ -19,6 +20,12 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [react()],
+  integrations: [
+    react({
+      babel: {
+        plugins: [reactCompilerPlugin],
+      },
+    }),
+  ],
   adapter: netlify(),
 });

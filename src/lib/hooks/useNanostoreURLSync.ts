@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useStore } from "@nanostores/react";
 import {
   $sermonFilterParams,
@@ -42,30 +42,27 @@ export const useNanostoreURLSync = <T = any>(key: FilterKey) => {
     storeValue = writingStore[key as keyof WritingsFilterParamsValue];
   }
 
-  const setValue = useCallback(
-    (value: T | null | undefined) => {
-      const normalized = normalize(value);
+  const setValue = (value: T | null | undefined) => {
+    const normalized = normalize(value);
 
-      if (isSermonKey) {
-        $sermonFilterParams.setKey(
-          key as keyof SermonFilterParamsValue,
-          normalized as any,
-        );
-      } else if (isWritingKey && !isDateValue(normalized)) {
-        $writingsFilterParams.setKey(
-          key as keyof WritingsFilterParamsValue,
-          normalized as any,
-        );
-      }
+    if (isSermonKey) {
+      $sermonFilterParams.setKey(
+        key as keyof SermonFilterParamsValue,
+        normalized as any,
+      );
+    } else if (isWritingKey && !isDateValue(normalized)) {
+      $writingsFilterParams.setKey(
+        key as keyof WritingsFilterParamsValue,
+        normalized as any,
+      );
+    }
 
-      const url = new URL(window.location.href);
-      if (normalized === undefined) url.searchParams.delete(key as string);
-      else url.searchParams.set(key as string, String(normalized));
+    const url = new URL(window.location.href);
+    if (normalized === undefined) url.searchParams.delete(key as string);
+    else url.searchParams.set(key as string, String(normalized));
 
-      window.history.replaceState({}, "", url);
-    },
-    [key, isSermonKey, isWritingKey],
-  );
+    window.history.replaceState({}, "", url);
+  };
 
   useEffect(() => {
     const syncFromURL = () => {

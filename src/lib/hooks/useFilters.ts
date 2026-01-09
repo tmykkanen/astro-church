@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNanostoreURLSync } from "@/lib/hooks/useNanostoreURLSync";
 
 interface FilterEntry<T> {
@@ -27,12 +27,8 @@ export const useFilters = () => {
     writingsSearchTerm: useNanostoreURLSync<string>("writingsSearchTerm"),
   };
 
-  const hasActiveFilters = useMemo(
-    () =>
-      Object.values(filters).some(
-        ({ value }) => value !== undefined && value !== null && value !== "",
-      ),
-    [filters],
+  const hasActiveFilters = Object.values(filters).some(
+    ({ value }) => value !== undefined && value !== null && value !== "",
   );
 
   const [isShowFilters, setIsShowFilters] = useState(false);

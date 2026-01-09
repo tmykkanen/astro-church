@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   Button,
   Calendar,
@@ -41,7 +40,7 @@ interface DatePickerCustomProps {
 /*                               DatePickerCustom                              */
 /* -------------------------------------------------------------------------- */
 const DatePickerCustom: React.FC<DatePickerCustomProps> = ({ type, data }) => {
-  const min = useMemo(() => getOldestSermonDate(data), [data]);
+  const min = getOldestSermonDate(data);
   const max = today(getLocalTimeZone());
 
   const label = type === "from" ? "From" : "To";

@@ -6,7 +6,7 @@ import reactPlugin from "eslint-plugin-react";
 import astroPlugin from "eslint-plugin-astro";
 
 export default defineConfig([
-  globalIgnores([".astro", ".netlify", "node_modules"]),
+  globalIgnores([".astro", ".netlify", "node_modules", "dist"]),
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx,}"],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },

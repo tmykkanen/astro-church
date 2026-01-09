@@ -1,4 +1,4 @@
-import { type FC, useMemo } from "react";
+import { type FC } from "react";
 import type {
   PreacherData,
   SeriesData,
@@ -61,16 +61,12 @@ const Filter: FC<FilterProps> = ({
 
   const type = allSermonData ? "sermons" : "writings";
 
-  const titleText = useMemo(
-    () =>
-      getFilterTitle({
-        ...normalizedFilters,
-        allWritings,
-        allSeriesData,
-        allPreachersData,
-      }),
-    [normalizedFilters, allWritings, allSeriesData, allPreachersData],
-  );
+  const titleText = getFilterTitle({
+    ...normalizedFilters,
+    allWritings,
+    allSeriesData,
+    allPreachersData,
+  });
 
   /* ------------------------------------------------------------------------ */
   /*                                   Render                                  */

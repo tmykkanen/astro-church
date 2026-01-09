@@ -4,7 +4,6 @@
     "interface": true,
     "type": true
   },
-  "tags": [
-    "-lintignore"
-  ]
+  "ignoreDependencies": ["eslint-plugin-jsx-a11y"],
+  "tags": ["-lintignore"]
 }
