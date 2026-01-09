@@ -278,6 +278,11 @@ content:
                 summary: "{fields.title}"
             fields:
               - { name: title, label: Title, type: string }
+              - name: type
+                label: Type
+                type: select
+                options:
+                  values: [ Blog, Events ]
               - name: subMenu
                 label: Sub Menu
                 type: object
