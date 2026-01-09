@@ -1,9 +1,9 @@
-import { defineConfig, globalIgnores } from "eslint/config";
 import js from "@eslint/js";
+import astroPlugin from "eslint-plugin-astro";
+import reactPlugin from "eslint-plugin-react";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import reactPlugin from "eslint-plugin-react";
-import astroPlugin from "eslint-plugin-astro";
 
 export default defineConfig([
   globalIgnores([".astro", ".netlify", "node_modules", "dist"]),
@@ -32,5 +32,13 @@ export default defineConfig([
       ...astroPlugin.configs.recommended,
       ...astroPlugin.configs["jsx-a11y-recommended"],
     ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [".*"],
+        },
+      ],
+    },
   },
 ]);

@@ -1,7 +1,3 @@
-# Local TODOS
-TODOS.md
-NOTES.md
-
 # build output
 dist/
 
@@ -29,3 +25,10 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# pnpm
+pnpm-lock.yaml
+
+# Shadcn Components
+src/components/ui
+src/content
