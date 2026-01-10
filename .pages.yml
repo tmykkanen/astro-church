@@ -46,8 +46,6 @@ content:
         type: reference
         options:
           collection: preachers
-          # value: "{slug}"
-          # search: "name,fields.slug,fields.name"
           label: "{fields.name}"
         required: true
       - name: spotifyURL
@@ -365,3 +363,12 @@ content:
               - name: link
                 label: Link
                 type: string
+      - name: theme
+        label: Theme
+        type: object
+        fields:
+          - name: tweakcn
+            label: TweakCN Theme
+            type: code
+            options: { language: html }
+            description: Select or create a theme at https://tweakcn.com/ and copy/paste it here.
