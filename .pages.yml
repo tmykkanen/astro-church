@@ -367,8 +367,8 @@ content:
         label: Theme
         type: object
         fields:
-          - name: tweakcn
-            label: TweakCN Theme
+          - name: customCSS
+            label: Custom CSS
             type: code
             options: { language: css }
             description: Select or create a theme at https://tweakcn.com/ and copy/paste it here.
