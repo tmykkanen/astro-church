@@ -1,4 +1,7 @@
 ---
+import "@/styles/global.css";
+import "@/styles/theme.css";
+
 import config from "@/_site-config.json";
 
 import Header from "@/components/Header.astro";
@@ -46,12 +49,6 @@ const metaTitle = `${config.general.name}${pageTitle ? ` | ${pageTitle}` : ""}`;
         rel="stylesheet"
       />
     </noscript>
-
-    <!-- GLOBAL STYLES FIRST -->
-    <link rel="stylesheet" href="/styles/global.css" />
-
-    <!-- THEME STYLES -->
-    {config.theme && <style is:inline set:html={config.theme.customCSS} />}
 
     <!-- CRITICAL CSS (ABOVE-THE-FOLD) -->
     <style>
