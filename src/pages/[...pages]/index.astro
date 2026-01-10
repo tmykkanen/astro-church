@@ -17,7 +17,7 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout pageTitle={page.data.title}>
-  <main class="layout-base justify-items-center py-8">
+  <main class="layout-base justify-items-center py-8 min-h-120">
     <MarkdownContentWrapper>
       <Content slot="content" />
     </MarkdownContentWrapper>

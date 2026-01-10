@@ -13,9 +13,6 @@
           },
           {
             "title": "Leadership"
-          },
-          {
-            "title": "Partnerships"
           }
         ]
       },
@@ -44,6 +41,9 @@
       {
         "title": "Writings",
         "type": "Blog"
+      },
+      {
+        "title": "What is the Gospel?"
       }
     ]
   },
