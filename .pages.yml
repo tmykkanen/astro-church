@@ -219,6 +219,12 @@ content:
           options: { maxlength: 180 },
         }
       - { name: order, label: Order, type: number }
+      - name: type
+        label: Type
+        type: select
+        description: Ensure you only select each item ONCE in the whole menu
+        options:
+        values: [Blog, Events, Sermons]
       - { name: body, label: Body, type: rich-text }
 
   - name: config
