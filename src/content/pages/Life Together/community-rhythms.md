@@ -1,5 +1,6 @@
 ---
 title: Community Rhythms
+order: 2
 ---
 # Community Rhythms
 
