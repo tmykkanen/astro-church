@@ -208,6 +208,15 @@ content:
       primary: title
     fields:
       - { name: title, label: Title, type: string, required: true, description: Ensure title exactly matches title in menu configuration under Site Config. }
+      - name: order
+        label: Menu Order
+        type: number
+      - name: type
+        label: Type
+        type: select
+        description: Ensure you only select each item ONCE in the whole menu
+        options:
+          values: [Blog, Events, Sermons]
       - { name: body, label: Body, type: rich-text, required: true }
 
   - name: config
