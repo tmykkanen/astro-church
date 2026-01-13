@@ -204,8 +204,12 @@ content:
     path: src/content/pages
     filename: "{primary}.md"
     view:
-      fields: [title]
+      fields: [title, order]
       primary: title
+      sort: [ order, title ]
+      default:
+        sort: order
+        order: asc
     fields:
       - { name: title, label: Title, type: string, required: true, description: Ensure title exactly matches title in menu configuration under Site Config. }
       - name: order
