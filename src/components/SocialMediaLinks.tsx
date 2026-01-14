@@ -1,12 +1,12 @@
 import { Icon } from "@iconify/react";
 
-import config from "@/_site-config.json";
 import { ButtonLink } from "@/components/ButtonLink";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import config from "@/site.config.json";
 
 interface SocialButtonProps {
   name: string;

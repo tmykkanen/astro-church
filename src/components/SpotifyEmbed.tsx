@@ -1,7 +1,6 @@
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import config from "@/_site-config.json";
 import { ButtonLink } from "@/components/ButtonLink";
 import { Skeleton } from "@/components/ui/skeleton";
 import type {
@@ -9,6 +8,7 @@ import type {
   SpotifyIframeApi,
   SpotifyPlaybackEvent,
 } from "@/lib/types";
+import config from "@/site.config.json";
 
 declare global {
   interface Window {

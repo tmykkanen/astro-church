@@ -232,7 +232,7 @@ content:
   - name: config
     label: Site Config
     type: file
-    path: src/_site-config.json
+    path: src/site.config.json
     fields:
       - name: general
         label: General Settings
