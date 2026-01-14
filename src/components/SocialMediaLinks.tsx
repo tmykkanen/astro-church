@@ -1,4 +1,6 @@
 import { Icon } from "@iconify/react";
+
+import config from "@/_site-config.json";
 import { ButtonLink } from "@/components/ButtonLink";
 import {
   Tooltip,
@@ -16,7 +18,6 @@ interface SocialButtonWithTooltipProps extends SocialButtonProps {
   hint: string;
 }
 
-import config from "@/_site-config.json";
 const { social } = config.footer.left;
 
 const SocialMediaLinks = () => {

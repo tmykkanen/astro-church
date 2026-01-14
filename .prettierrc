@@ -1,12 +1,12 @@
 {
   "htmlWhitespaceSensitivity": "ignore",
-  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss", "prettier-plugin-astro", "prettier-plugin-packagejson"],
-  "importOrder": [
-    "^node:",
-    "<THIRD_PARTY_MODULES>",
-    "^@/(.*)$",
-    "^[./]"
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-astro",
+    "prettier-plugin-packagejson"
   ],
+  "importOrder": ["^node:", "<THIRD_PARTY_MODULES>", "^@/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }

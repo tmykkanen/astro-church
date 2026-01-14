@@ -1,4 +1,11 @@
 import {
+  CalendarDate,
+  getLocalTimeZone,
+  parseAbsoluteToLocal,
+  today,
+} from "@internationalized/date";
+import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import {
   Button,
   Calendar,
   CalendarCell,
@@ -16,17 +23,10 @@ import {
   Popover,
 } from "react-aria-components";
 import type { ButtonProps, PopoverProps } from "react-aria-components";
-import { ChevronLeft, ChevronRight, CalendarIcon } from "lucide-react";
-import {
-  getLocalTimeZone,
-  parseAbsoluteToLocal,
-  today,
-  CalendarDate,
-} from "@internationalized/date";
 
+import { useNanostoreURLSync } from "@/lib/hooks/useNanostoreURLSync";
 import type { SermonData } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { useNanostoreURLSync } from "@/lib/hooks/useNanostoreURLSync";
 
 /* -------------------------------------------------------------------------- */
 /*                                 Types                                       */

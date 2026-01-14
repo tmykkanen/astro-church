@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,22 +10,21 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-
-import { cn } from "@/lib/utils";
+import { useNanostoreURLSync } from "@/lib/hooks/useNanostoreURLSync";
 import {
+  type PreacherData,
+  type SeriesData,
   isPreacherCollection,
   isSeriesCollection,
   isStringArray,
-  type PreacherData,
-  type SeriesData,
 } from "@/lib/types";
-import { useNanostoreURLSync } from "@/lib/hooks/useNanostoreURLSync";
+import { cn } from "@/lib/utils";
 
 /* -------------------------------------------------------------------------- */
 /*                                 Types                                      */

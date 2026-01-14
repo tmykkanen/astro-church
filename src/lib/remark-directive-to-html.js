@@ -1,5 +1,4 @@
 // https://github.com/micromark/micromark-extension-directive#syntax
-
 import { h } from "hastscript";
 import { visit } from "unist-util-visit";
 

@@ -7,9 +7,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-  },
+    "esModuleInterop": true
+  }
 }
