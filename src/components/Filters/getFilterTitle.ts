@@ -8,7 +8,7 @@ interface Params {
   preacher?: string;
   from?: Date;
   to?: Date;
-  allBlog?: BlogData[];
+  allBlogData?: BlogData[];
   allSeriesData?: SeriesData[];
   allPreachersData?: PreacherData[];
 }
@@ -21,13 +21,13 @@ export const getFilterTitle = ({
   preacher,
   from,
   to,
-  allBlog,
+  allBlogData,
   allSeriesData,
   allPreachersData,
 }: Params) => {
   if (blogSearchTerm) return `Posts matching ${blogSearchTerm}`;
   if (tag) return `Posts tagged with ${tag}`;
-  if (allBlog) return "All Posts";
+  if (allBlogData) return "All Posts";
 
   if (sermonSearchTerm) return `Sermons matching ${sermonSearchTerm}`;
   if (series && allSeriesData)

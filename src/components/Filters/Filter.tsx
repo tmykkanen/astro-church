@@ -22,7 +22,7 @@ interface FilterProps {
   allSermonData?: SermonData[];
   allSeriesData?: SeriesData[];
   allPreachersData?: PreacherData[];
-  allBlog?: BlogData[];
+  allBlogData?: BlogData[];
   allTags?: string[] | null;
 }
 
@@ -33,7 +33,7 @@ const Filter: FC<FilterProps> = ({
   allSermonData,
   allSeriesData,
   allPreachersData,
-  allBlog,
+  allBlogData,
   allTags,
 }) => {
   const {
@@ -62,7 +62,7 @@ const Filter: FC<FilterProps> = ({
 
   const titleText = getFilterTitle({
     ...normalizedFilters,
-    allBlog,
+    allBlogData,
     allSeriesData,
     allPreachersData,
   });

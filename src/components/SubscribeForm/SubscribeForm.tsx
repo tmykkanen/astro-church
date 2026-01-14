@@ -1,11 +1,12 @@
 /* eslint-disable react/no-children-prop */
 import { useForm } from "@tanstack/react-form";
-import { Button } from "../ui/button";
+import { toast } from "sonner";
+
+import { subscribeFormSchema } from "@/components/SubscribeForm/schema";
+import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Toaster } from "../ui/sonner";
-import { toast } from "sonner";
-import { subscribeFormSchema } from "./schema";
+import { Toaster } from "@/components/ui/sonner";
 
 const SubscribeForm = () => {
   const form = useForm({

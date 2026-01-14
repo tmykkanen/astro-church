@@ -23,6 +23,12 @@ export default defineConfig([
     rules: {
       "react/prop-types": "off", // disable prop-types check,
       "@typescript-eslint/no-explicit-any": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [".*"],
+        },
+      ],
     },
   },
   {
