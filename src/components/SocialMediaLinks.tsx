@@ -51,6 +51,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({ name, href, icon }) => {
     <ButtonLink
       href={href}
       target="_blank"
+      rel="noopener noreferrer"
       aria-label={`click link for ${name}`}
       variant="footer-icon"
     >
@@ -71,6 +72,7 @@ const SocialButtonWithTooltip: React.FC<SocialButtonWithTooltipProps> = ({
         <ButtonLink
           href={href}
           target="_blank"
+          rel="noopener noreferrer"
           aria-label={`click link for ${name}`}
           variant="footer-icon"
         >

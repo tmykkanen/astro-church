@@ -20,7 +20,7 @@ const currentPath = Astro.url.pathname;
     {
       config?.data.header?.logo ? (
         <a href="/" class="flex-1">
-          <h1 class="sr-only">{config.data.general.name}</h1>
+          <h2 class="sr-only">{config.data.general.name}</h2>
           <Image
             src={logoImage[`/${config.data.header.logo}`]()}
             alt="logo"
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
           />
         </a>
       ) : (
-        <StyledText as="h1" variant="displayLG" className="flex-1">
+        <StyledText as="h2" variant="displayLG" className="flex-1">
           <a href="/">{config?.data.general.name}</a>
         </StyledText>
       )

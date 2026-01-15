@@ -172,6 +172,7 @@ const SpotifyEmbed: FC<SpotifyEmbedProps> = ({
               variant="link"
               href={`${youtubeFallback}/search?query=${query}`}
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="link to search youtube channel"
             >
               No Spotify link available. Click here to search our YouTube

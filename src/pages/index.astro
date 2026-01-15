@@ -11,27 +11,33 @@ const config = await getEntry("config", "siteconfig");
 const hero = config?.data.body?.hero;
 const cta = config?.data.body?.cta;
 
-const bgImage = import.meta.glob<{ default: ImageMetadata }>(`src/assets/*`);
+const bgImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,webp,svg}",
+);
+
+const imagePath = `/${hero?.bgImage}`;
+const selectedImage = hero?.bgImage ? bgImages[imagePath] : null;
 ---
 
-<BaseLayout>
+<BaseLayout pageTitle="Home">
   <main class="relative min-h-[calc(100vh-6.5rem)]">
+    <h1 class="sr-only">{config?.data.general.name}</h1>
     <section
       class="grid min-h-screen w-full bg-cover bg-right"
       aria-labelledby="hero-heading"
     >
       <!-- BACKGROUND IMG & OVERLAY -->
       {
-        hero?.bgImage && (
+        selectedImage && (
           <>
             <Image
-              src={bgImage[`/${hero.bgImage}`]()}
+              src={selectedImage()}
               alt="Homepage background"
               class="absolute inset-0 w-full h-full object-cover"
               priority
             />
             <div
-              class="bg-muted col-start-1 row-start-1 h-full w-full opacity-85"
+              class="bg-muted col-start-1 row-start-1 h-full w-full opacity-85 z-10"
               aria-hidden="true"
             />
           </>
@@ -39,7 +45,7 @@ const bgImage = import.meta.glob<{ default: ImageMetadata }>(`src/assets/*`);
       }
 
       <!-- HERO CONTENT -->
-      <div class="layout-base isolate col-start-1 row-start-1 gap-y-8">
+      <div class="layout-base isolate col-start-1 row-start-1 gap-y-8 z-20">
         <StyledText
           as="h2"
           id="hero-heading"
@@ -50,8 +56,11 @@ const bgImage = import.meta.glob<{ default: ImageMetadata }>(`src/assets/*`);
           cta?.text && (
             <ButtonLink
               variant="secondary"
-              href={cta.link ?? ""}
-              target="_blank"
+              href={cta.link ?? "#"}
+              target={cta.link?.startsWith("http") ? "_blank" : "_self"}
+              rel={
+                cta.link?.startsWith("http") ? "noopener noreferrer" : undefined
+              }
               className="w-full h-auto"
             >
               <StyledText as="span" variant="button" set:html={cta.text} />

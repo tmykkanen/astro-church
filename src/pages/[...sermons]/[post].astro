@@ -79,7 +79,7 @@ const { Content } = await render(page);
       {page.rendered?.html ? <Content /> : <p>{preacherBio}</p>}
       {
         bulletinURL && (
-          <a href={bulletinURL} target="_blank">
+          <a href={bulletinURL} target="_blank" rel="noopener noreferrer">
             View the Bulletin
           </a>
         )
