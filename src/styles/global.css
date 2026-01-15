@@ -5,7 +5,6 @@
 @import "tw-animate-css";
 @plugin "tailwindcss-react-aria-components";
 @plugin "@tailwindcss/typography";
-/*@plugin "tailwindcss-animate";*/
 
 @custom-variant dark (&:is(.dark *));
 
@@ -66,20 +65,3 @@
     grid-column: 1 / -1;
   }
 }
-
-/* Sensible defaults for list styling */
-/*ol {
-  counter-reset: counter;
-}
-
-ol li {
-  counter-increment: counter;
-  padding-block: 0.5rem;
-  display: flex;
-  gap: var(--spacing);
-}
-
-ol li::before {
-  content: counter(counter) ". ";
-  color: var(--color-primary);
-}*/
