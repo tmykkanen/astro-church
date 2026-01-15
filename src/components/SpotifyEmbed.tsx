@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import { ButtonLink } from "@/components/ButtonLink";
+import { StyledText } from "@/components/StyledText";
 import { Skeleton } from "@/components/ui/skeleton";
 import type {
   SpotifyEmbedController,
@@ -19,14 +20,14 @@ interface SpotifyEmbedProps {
   type: "audio" | "video";
   spotifyURL?: string;
   query?: string;
-  youtubeFallback?: string;
+  youtubeURL?: string;
 }
 
 const SpotifyEmbed: FC<SpotifyEmbedProps> = ({
   type,
   spotifyURL,
   query = "",
-  youtubeFallback,
+  youtubeURL,
 }) => {
   const isVideo = type === "video";
   const isAudio = type === "audio";
@@ -165,21 +166,32 @@ const SpotifyEmbed: FC<SpotifyEmbedProps> = ({
 
       {hasError && (
         <div
-          className={`text-muted-foreground bg-background absolute top-0 left-0 flex w-full items-center justify-center rounded-md border text-sm ${isAudio ? "h-38" : "h-60 sm:h-80 md:h-100"}`}
+          className={`text-muted-foreground bg-background absolute top-0 left-0 flex w-full flex-col items-center justify-center rounded-md border text-sm ${isAudio ? "h-38" : "h-60 sm:h-80 md:h-100"}`}
         >
-          {youtubeFallback ? (
+          {spotifyURL ? (
+            <StyledText
+              as="h3"
+              variant={"subheading"}
+              className="px-8 text-center"
+            >
+              Sorry. Spotify link not available. Refresh to try again.
+            </StyledText>
+          ) : (
+            <StyledText as="h3" variant={"subheading"}>
+              Sorry. No Spotify link available for this sermon.
+            </StyledText>
+          )}
+
+          {youtubeURL && (
             <ButtonLink
               variant="link"
-              href={`${youtubeFallback}/search?query=${query}`}
+              href={`${youtubeURL}/search?query=${query}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="link to search youtube channel"
             >
-              No Spotify link available. Click here to search our YouTube
-              channel.
+              Click here to search our YouTube channel.
             </ButtonLink>
-          ) : (
-            <p>No Spotify link available.</p>
           )}
         </div>
       )}

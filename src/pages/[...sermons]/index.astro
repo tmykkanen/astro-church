@@ -66,7 +66,7 @@ export const getStaticPaths = () => {
         type="audio"
         spotifyURL={latestSermon.data.spotifyURL}
         query={latestSermonDateFormatted}
-        youtubeFallback={config?.data.general.youtube}
+        youtubeURL={config?.data.general.youtube}
         client:idle
       />
     </section>
