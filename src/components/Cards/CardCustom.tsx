@@ -32,9 +32,12 @@ const CardCustom: React.FC<CardCustomProps> = ({ data: inputData, paths }) => {
       : "";
 
   return (
-    <Card className="bg-muted rounded-sm border-none py-0 shadow-sm">
+    <Card className="bg-muted rounded-sm border-none py-0 shadow-sm outline-none">
       <CardContent className="flex flex-row p-0">
-        <a href={`/${baseUrl}/${id}`} className="flex max-h-48 w-full flex-row">
+        <a
+          href={`/${baseUrl}/${id}`}
+          className="flex max-h-48 w-full flex-row rounded-sm"
+        >
           {isSermon && (
             <img
               src={inputData.series.data.imageSquare}

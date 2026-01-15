@@ -112,7 +112,7 @@ const Combobox: React.FC<ComboboxProps> = ({ data: inputData, type }) => {
     <div className="inline-flex h-9 items-stretch">
       <Label
         htmlFor={label}
-        className="bg-muted border-muted-content/20 flex h-full min-w-24 flex-1/4 items-center rounded-l-md border px-4 py-2 text-sm select-none sm:flex-1"
+        className="bg-muted flex h-full min-w-24 flex-1/4 items-center rounded-l-md border px-4 py-2 text-sm font-normal select-none sm:flex-1"
       >
         {label}
       </Label>

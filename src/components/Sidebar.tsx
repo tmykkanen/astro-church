@@ -26,7 +26,7 @@ const Sidebar: React.FC<{ menu: MenuItem[] }> = ({ menu }) => {
     <>
       <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right" modal>
         <DrawerTrigger
-          className="z-100 lg:hidden"
+          className="focus-visible:border-ring focus-visible:ring-ring z-100 outline-none focus-visible:ring-2 lg:hidden"
           aria-label="Open sidebar menu"
         >
           <Hamburger

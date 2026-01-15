@@ -13,7 +13,7 @@
     transparent 50%
   );
   --fc-button-hover-border-color: var(--fc-button-hover-bg-color);
-  --fc-button-active-bg-color: var(--color-secondary);
+  --fc-button-active-bg-color: var(--color-accent);
   --fc-button-active-border-color: var(--fc-button-active-bg-color);
   --fc-event-bg-color: var(--color-primary);
   --fc-event-border-color: var(--color-primary); /* Dot color */
@@ -28,9 +28,9 @@
   --fc-bg-event-color: var(--color-primary);
   --fc-bg-event-opacity: 0.3;
   --fc-highlight-color: var(--color-primary);
-  --fc-today-bg-color: var(--color-secondary);
+  --fc-today-bg-color: var(--color-accent);
   --fc-now-indicator-color: red;
-  --fc-list-event-hover-bg-color: var(--color-secondary);
+  --fc-list-event-hover-bg-color: var(--color-accent);
 }
 
 .fc {

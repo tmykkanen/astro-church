@@ -76,12 +76,15 @@ const DatePickerCustom: React.FC<DatePickerCustomProps> = ({ type, data }) => {
       maxValue={type === "to" ? max : (otherValue ?? max)}
       onBlur={() => clampValue(value)}
     >
-      <Label className="bg-muted border-muted-foreground/20 flex h-full min-w-24 flex-1/4 cursor-default items-center rounded-l-md border px-4 text-sm select-none sm:flex-1">
+      <Label
+        htmlFor={label}
+        className="bg-muted flex h-full min-w-24 flex-1/4 cursor-default items-center rounded-l-md border px-4 text-sm font-normal select-none sm:flex-1"
+      >
         {label}
       </Label>
       <Group
         className={cn(
-          "bg-muted group-open:bg-secondary text-muted-foreground border-muted-foreground/20 ring-muted-foreground focus-visible:ring-primary flex flex-[65%] rounded-md rounded-l-none border pl-3 shadow-md transition focus-visible:ring-2",
+          "bg-muted group-open:bg-secondary text-muted-foreground border-muted-foreground/20 ring-muted-foreground focus-visible:ring-primary -ml-px flex flex-[65%] rounded-md rounded-l-none border pl-3 shadow-md transition focus-visible:ring-2",
           value && "text-foreground",
         )}
       >
@@ -126,7 +129,7 @@ const DatePickerCustom: React.FC<DatePickerCustomProps> = ({ type, data }) => {
                 {(date) => (
                   <CalendarCell
                     date={date}
-                    className="outside-month:text-muted-foreground/50 selected:bg-foreground selected:text-background hover:border-primary disabled:text-muted-foreground/50 flex h-9 w-9 cursor-default items-center justify-center text-sm hover:border-2"
+                    className="outside-month:text-muted-foreground/50 selected:bg-foreground selected:text-background hover:border-primary disabled:text-muted-foreground/50 focus-visible:ring-ring flex h-9 w-9 cursor-default items-center justify-center text-sm outline-none hover:border-2 focus-visible:ring-2"
                   />
                 )}
               </CalendarGridBody>
@@ -145,7 +148,7 @@ function RoundButton(props: ButtonProps) {
   return (
     <Button
       {...props}
-      className="pressed:bg-accent hover:bg-secondary hover:text-secondary-foreground text-muted-foreground ring-primary disabled:text-muted-foreground/50 flex h-9 w-9 cursor-default items-center justify-center rounded-full border-0 bg-transparent outline-hidden focus-visible:ring-1"
+      className="pressed:bg-accent/50 hover:bg-accent hover:text-accent-foreground text-muted-foreground ring-primary disabled:text-muted-foreground/50 flex h-9 w-9 cursor-default items-center justify-center rounded-full border-0 bg-transparent outline-hidden focus-visible:ring-2"
     />
   );
 }

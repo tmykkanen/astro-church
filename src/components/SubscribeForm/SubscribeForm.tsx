@@ -68,7 +68,7 @@ const SubscribeForm = () => {
                     aria-invalid={isInvalid}
                     placeholder="First Name"
                     autoComplete="off"
-                    className="bg-muted text-muted-foreground"
+                    className="bg-muted text-muted-foreground focus-visible:ring-ring focus-visible:ring-2"
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
@@ -92,7 +92,7 @@ const SubscribeForm = () => {
                     aria-invalid={isInvalid}
                     placeholder="Last Name"
                     autoComplete="off"
-                    className="bg-muted text-muted-foreground"
+                    className="bg-muted text-muted-foreground focus-visible:ring-ring focus-visible:ring-2"
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
@@ -116,7 +116,7 @@ const SubscribeForm = () => {
                     aria-invalid={isInvalid}
                     placeholder="mail@example.com"
                     autoComplete="off"
-                    className="bg-muted text-muted-foreground"
+                    className="bg-muted text-muted-foreground focus-visible:ring-ring focus-visible:ring-2"
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
