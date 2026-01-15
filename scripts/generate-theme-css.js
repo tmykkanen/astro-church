@@ -4,6 +4,8 @@ import fs from "fs";
 // eslint-disable-next-line no-restricted-imports
 import config from "../src/content/site.config.json" with { type: "json" };
 
-const cssContent = config.theme?.customCSS || "";
+const CUSTOM_CSS = config.theme?.customCSS || "/* No custom CSS defined */";
 
-fs.writeFileSync("src/styles/theme.css", cssContent);
+const fileContent = `/* AUTO-GENERATED - DO NOT EDIT */\n\n${CUSTOM_CSS}`;
+
+fs.writeFileSync("src/styles/theme.css", fileContent);
