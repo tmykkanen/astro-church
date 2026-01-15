@@ -21,4 +21,4 @@ const ButtonLink: React.FC<ButtonLinkProps & React.ComponentProps<"a">> = ({
   );
 };
 
-export { ButtonLink, type ButtonLinkProps };
+export { ButtonLink };

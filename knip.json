@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-
   "ignoreDependencies": ["eslint-plugin-jsx-a11y"],
-  "tags": ["-lintignore"]
+  "tags": ["-lintignore"],
+  "ignore": ["src/components/ui/**"]
 }
