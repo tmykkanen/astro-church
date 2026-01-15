@@ -24,10 +24,11 @@ const Search: FC<HTMLProps<HTMLDivElement> & SearchProps> = ({
   className,
   type,
 }) => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useHotkeys("meta+k", () => {
-    inputRef.current.focus();
+  useHotkeys("meta+k", (e) => {
+    e.preventDefault();
+    inputRef.current?.focus();
   });
 
   // Determine the nanostore key based on type
