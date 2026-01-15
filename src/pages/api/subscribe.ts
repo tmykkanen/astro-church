@@ -36,15 +36,11 @@ export const POST: APIRoute = async ({ request }) => {
     await request.json(),
   );
 
-  console.log("hello from the POST!");
-
   // Check if contact already exists
   try {
     const { data: getContact } = await resend.contacts.get({
       email,
     });
-
-    console.log("GETCONTACT:", getContact);
 
     // Handle if contact already exists
     if (getContact) {
@@ -83,8 +79,6 @@ export const POST: APIRoute = async ({ request }) => {
       unsubscribed: false,
     });
 
-    console.log("CREATE:", data);
-
     if (createError) throw new Error(createError.message);
 
     // Add contact to general segment
@@ -94,8 +88,6 @@ export const POST: APIRoute = async ({ request }) => {
         segmentId: RESEND_SEGMENT_ID,
       });
 
-    console.log("SEGMENT:", segment);
-    console.log("SEGMENTERR:", addToSegmentError);
     if (addToSegmentError) throw new Error(addToSegmentError.message);
 
     // All good
@@ -107,7 +99,7 @@ export const POST: APIRoute = async ({ request }) => {
       { status: 200 },
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return new Response(
       JSON.stringify({
         message: "Unknown Failure! Please try again.",
