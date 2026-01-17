@@ -41,12 +41,6 @@
           "name": "Spotify",
           "icon": "simple-icons:spotify",
           "link": "https://open.spotify.com/artist/16QSVsPKl743hu4U5C18R8?si=Cl-bBnERRfCzrMZVwbul9w"
-        },
-        {
-          "name": "SMS",
-          "icon": "material-symbols:sms",
-          "link": "sms:+1234567899",
-          "hint": "Click to send text message"
         }
       ]
     },
