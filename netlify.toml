@@ -1,2 +1,7 @@
 [build]
-  ignore = "git log -1 --pretty=%B | grep -q '(via Pages CMS)'"
+  ignore = '''
+    if [ -n "$BUILD_HOOK_TITLE" ] || [ -n "$INCOMING_HOOK_URL" ]; then
+      exit 1
+    fi
+    git log -1 --pretty=%B | grep -q '(via Pages CMS)'
+  '''
