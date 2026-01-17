@@ -11,19 +11,41 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # Fetch enough history to compare
+          fetch-depth: 0
 
       - name: Check for changes in last 24 hours
         id: check
         run: |
-          # Check if there are any commits in the last 24 hours
-          if [ $(git log --since="24 hours ago" | wc -l) -gt 0 ]; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-          fi
+          CHANGES=$(git log --since='24 hours ago' --oneline)
+              if [ -n "$CHANGES" ]; then
+                echo "changes=true" >> $GITHUB_OUTPUT
+                echo "Found changes in last 24 hours:"
+                echo "$CHANGES"
+              else
+                echo "changes=false" >> $GITHUB_OUTPUT
+                echo "No changes found in last 24 hours"
+              fi
 
       - name: Trigger Netlify Build
         if: steps.check.outputs.changes == 'true'
         run: |
-          curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
+          RESPONSE=$(curl -X POST -d {} -w "\n%{http_code}" -s ${{ secrets.NETLIFY_BUILD_HOOK }})
+              HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+
+              if [ "$HTTP_CODE" -eq 200 ] || [ "$HTTP_CODE" -eq 201 ]; then
+                echo "✅ Netlify build triggered successfully"
+              else
+                echo "🛑 Failed to trigger Netlify build (HTTP $HTTP_CODE)"
+                exit 1
+              fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Changes detected: ${{ steps.check.outputs.changes }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check.outputs.changes }}" == "true" ]; then
+            echo "- Netlify build: Triggered ✅" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Netlify build: Skipped (no changes) ⏭️" >> $GITHUB_STEP_SUMMARY
+          fi
