@@ -8,7 +8,7 @@ const { PUBLIC_GOOGLE_CALENDAR_ID, PUBLIC_GOOGLE_CALENDAR_API_KEY } =
   import.meta.env;
 
 const Calendar = () => {
-  const calendarRef = useRef(null);
+  const calendarRef = useRef<FullCalendar>(null);
 
   useHotkeys("ArrowLeft", () => {
     if (!calendarRef.current) return;
