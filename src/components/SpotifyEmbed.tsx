@@ -32,7 +32,7 @@ const SpotifyEmbed: FC<SpotifyEmbedProps> = ({
   const isVideo = type === "video";
   const isAudio = type === "audio";
 
-  const match = spotifyURL?.match(/(?<=episode\/).+?(?=\?)/);
+  const match = spotifyURL?.match(/(?<=episode\/)[^?]+/);
   const spotifyURI = match ? match[0] : null;
   const videoSrc = spotifyURI
     ? `https://open.spotify.com/embed/episode/${spotifyURI}/video?utm_source=generator`
