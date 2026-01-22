@@ -51,7 +51,11 @@ content:
       - name: spotifyURL
         label: Spotify URL
         type: string
-        pattern: {message: "Use a full url to a spotify episode.",  regex: '(?<=episode\/)[^?]+'}
+        pattern:
+          {
+            message: "Use a full url to a spotify episode.",
+            regex: '(?<=episode\/)[^?]+',
+          }
       - name: bulletinURL
         label: Bulletin URL
         type: string
@@ -241,12 +245,26 @@ content:
               required: true,
               description: For SEO metadata.,
             }
+          - { name: logo, label: Logo, type: image }
           - { name: youtube, label: YouTube Channel, type: string }
       - name: header
         label: Header
         type: object
         fields:
-          - { name: logo, label: Logo, type: image }
+          - {
+              name: displayTitle,
+              label: Display Church Name in Header,
+              type: boolean,
+              default: true,
+              required: true,
+            }
+          - {
+              name: displayLogo,
+              label: Display Church Logo in Header,
+              type: boolean,
+              default: false,
+              required: true,
+            }
       - name: body
         label: Body
         type: object
