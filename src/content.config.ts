@@ -9,12 +9,12 @@ const getSlugFromFilename = (val: string): string => {
   return slug;
 };
 
-const isSunday = (input: Date) => {
-  const date = new Date(
-    input.valueOf() + input.getTimezoneOffset() * 60 * 1000,
-  );
-  return date.getDay() === 0;
-};
+// const isSunday = (input: Date) => {
+//   const date = new Date(
+//     input.valueOf() + input.getTimezoneOffset() * 60 * 1000,
+//   );
+//   return date.getDay() === 0;
+// };
 
 const siteConfig = defineCollection({
   loader: glob({ pattern: "site.config.json", base: "./src/content/" }),
@@ -101,19 +101,21 @@ const sermonsCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/sermons" }),
   schema: z.object({
     title: z.string(),
-    date: z.date().superRefine((val, ctx) => {
-      if (!isSunday(val)) {
-        const weekday = val.toLocaleDateString("en-US", {
-          weekday: "long",
-          timeZone: "UTC",
-        });
+    date: z.date(),
+    // Replace regular date validator with this to limit valid dates to Sundays.
+    // date: z.date().superRefine((val, ctx) => {
+    //   if (!isSunday(val)) {
+    //     const weekday = val.toLocaleDateString("en-US", {
+    //       weekday: "long",
+    //       timeZone: "UTC",
+    //     });
 
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `Sermon date must be a Sunday, received ${weekday}`,
-        });
-      }
-    }),
+    //     ctx.addIssue({
+    //       code: z.ZodIssueCode.custom,
+    //       message: `Sermon date must be a Sunday, received ${weekday}`,
+    //     });
+    //   }
+    // }),
     series: z.preprocess((val) => {
       return getSlugFromFilename(val as string);
     }, reference("series")),
