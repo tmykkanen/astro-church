@@ -51,11 +51,6 @@ content:
       - name: spotifyURL
         label: Spotify URL
         type: string
-        pattern:
-          {
-            message: "Use a full url to a spotify episode.",
-            regex: '(?<=episode\/)[^?]+',
-          }
       - name: bulletinURL
         label: Bulletin URL
         type: string
