@@ -4,6 +4,10 @@
     "description": "We exist to be and make eternally joyful disciples of Jesus Christ. Sojourners is a baptistic, reformed, non-denominational church in Albert Lea, Minnesota. Join us Sundays at 10am in the Skyline Plaza!",
     "youtube": "https://www.youtube.com/@CodinginPublic"
   },
+  "header": {
+    "displayTitle": true,
+    "displayLogo": true
+  },
   "body": {
     "hero": {
       "text": "<span class='opacity-40'>Free, open-source template</span><span class='text-primary'> for building great church websites</span><span class='opacity-40'> with Astro</span>",
