@@ -41,7 +41,7 @@ const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
     </section>
 
     {
-      form?.active &&
+      form?.isActive &&
         (RESEND_SEGMENT_ID && RESEND_API_KEY ? (
           <section class="flex flex-col gap-4">
             <div class="flex flex-col gap-2">
@@ -67,7 +67,7 @@ const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
     }
 
     {
-      give?.active && (
+      give?.isActive && (
         <section class="flex flex-col gap-4">
           <div class="flex flex-col gap-2">
             <StyledText as="h2" variant="heading" set:html={give.heading} />

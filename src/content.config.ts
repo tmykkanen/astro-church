@@ -73,14 +73,14 @@ const siteConfig = defineCollection({
           .optional(),
         form: z
           .object({
-            active: z.boolean(),
+            isActive: z.boolean(),
             heading: z.string().optional(),
             description: z.string().optional(),
           })
           .optional(),
         give: z
           .object({
-            active: z.boolean(),
+            isActive: z.boolean(),
             heading: z.string().optional(),
             description: z.string().optional(),
             link: z.string().optional(),

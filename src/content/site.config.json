@@ -49,12 +49,12 @@
       ]
     },
     "form": {
-      "active": true,
+      "isActive": true,
       "heading": "Weekly Bulletin",
       "description": "Sign up to stay informed and connected to Astro Church weekly happenings."
     },
     "give": {
-      "active": true,
+      "isActive": true,
       "heading": "Give to Astro Church",
       "description": "Click below to set up a one time or recurring gift to Astro Church.",
       "link": "https://get.tithe.ly/"

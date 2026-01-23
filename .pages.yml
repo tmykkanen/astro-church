@@ -333,7 +333,7 @@ content:
             label: Form
             type: object
             fields:
-              - name: active
+              - name: isActive
                 label: Active
                 type: boolean
                 default: true
@@ -348,7 +348,7 @@ content:
             label: Give
             type: object
             fields:
-              - name: active
+              - name: isActive
                 label: Active
                 type: boolean
                 default: true
