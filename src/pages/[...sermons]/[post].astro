@@ -4,7 +4,6 @@ import { StyledText } from "@/components/StyledText";
 import SpotifyEmbed from "@/components/SpotifyEmbed";
 import Meta from "@/components/Meta";
 import { format as datefnsFormat } from "date-fns";
-import { marked } from "marked";
 
 import { render, getEntry } from "astro:content";
 
@@ -33,7 +32,7 @@ const { page } = Astro.props;
 const {
   data: { title, spotifyURL, scripture, date, bulletinURL },
   preacher: {
-    data: { name: preacher, bio },
+    data: { name: preacher },
   },
   series: {
     data: { title: series },
@@ -45,8 +44,8 @@ const dateFormatted = datefnsFormat(
   "LLL dd, yyyy",
 );
 
-const { Content } = await render(page);
-const preacherBio = bio ? marked.parse(bio) : null;
+const { Content: SermonContent } = await render(page);
+const { Content: PreacherContent } = await render(page.preacher);
 ---
 
 <BaseLayout pageTitle={page.data.title}>
@@ -78,7 +77,7 @@ const preacherBio = bio ? marked.parse(bio) : null;
     <div
       class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground max-w-none"
     >
-      {page.rendered?.html ? <Content /> : <p set:html={preacherBio} />}
+      {page.rendered?.html ? <SermonContent /> : <PreacherContent />}
       {
         bulletinURL && (
           <a href={bulletinURL} target="_blank" rel="noopener noreferrer">

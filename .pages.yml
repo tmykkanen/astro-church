@@ -78,12 +78,12 @@ content:
         label: Priority (1 is highest, 0 is lowest)
         type: number
         default: 0
-      - name: bio
-        label: Bio
-        type: rich-text
       - name: image
         label: Upload a Picture
         type: image
+      - name: body
+        label: Bio
+        type: rich-text
     view:
       primary: name
   - name: series
@@ -111,7 +111,7 @@ content:
         options:
           media: series-graphics
       - name: startDate
-        label: Start date
+        label: Start Date
         type: date
         required: true
       - name: book

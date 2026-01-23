@@ -218,7 +218,6 @@ const preachersCollection = defineCollection({
     name: z.string(),
     isGuest: z.boolean().optional(),
     priority: z.number(),
-    bio: z.string().optional(),
     image: z.string().optional(),
   }),
 });
