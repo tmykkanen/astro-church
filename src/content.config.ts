@@ -215,7 +215,7 @@ const preachersCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/preachers" }),
   schema: z.object({
     name: z.string(),
-    isGuest: z.boolean().optional(),
+    isGuest: z.boolean(),
     priority: z.number(),
     image: z.string().optional(),
   }),

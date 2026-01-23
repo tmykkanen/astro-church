@@ -73,6 +73,7 @@ content:
       - name: isGuest
         label: Guest Preacher
         type: boolean
+        required: true
         default: true
       - name: priority
         label: Priority (1 is highest, 0 is lowest)
@@ -98,16 +99,15 @@ content:
         label: Series Title
         type: string
         required: true
-      - name: image
-        label: Series Image
-        type: image
-        required: true
-        options:
-          media: series-graphics
       - name: startDate
         label: Start Date
         type: date
         required: true
+      - name: image
+        label: Series Image
+        type: image
+        options:
+          media: series-graphics
       - name: book
         label: Bible Book(s)
         type: select
