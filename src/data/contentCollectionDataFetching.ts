@@ -6,7 +6,7 @@ import type { BlogData, PreacherData, SeriesData, SermonData } from "@/types";
 /* ========= SITE CONFIG ============ */
 /* ================================== */
 /**
- * Fetch site configuration file from src/content/site.config.json
+ * Fetch site configuration file from src/content-collections/site.config.json
  */
 export const siteConfig = await getEntry("config", "siteconfig");
 
@@ -15,7 +15,7 @@ export const siteConfig = await getEntry("config", "siteconfig");
 /* ================================== */
 
 /**
- * 1. Fetch sermon collection from `src/content/sermons`.
+ * 1. Fetch sermon collection from `src/content-collections/sermons`.
  * 2. Sort entries.
  * 3. For each entry, replace series and preacher objects with full
  * content entries from their corresponding collections using getEntry()
@@ -51,7 +51,7 @@ export const allSermonData = await getAllSermonData();
 /* ================================== */
 
 /**
- * 1. Fetch series collection from `src/content/series`.
+ * 1. Fetch series collection from `src/content-collections/series`.
  * 2. Sort entries by date.
  * @returns Promise<SeriesData[]>
  */
@@ -72,7 +72,7 @@ export const allSeriesData = await getAllSeriesData();
 /* ================================== */
 
 /**
- * 1. Fetch preachers collection from `src/content/preachers`.
+ * 1. Fetch preachers collection from `src/content-collections/preachers`.
  * 2. Sort entries: Last Name -> Priority -> Guest Status.
  * @returns Promise<PreacherData[]>
  */
@@ -107,7 +107,7 @@ export const allPreachersData = await getAllPreachersData();
 /* ================================== */
 
 /**
- * 1. Fetch blog collection from `src/content/blog`.
+ * 1. Fetch blog collection from `src/content-collections/blog`.
  * 2. Sort entries by date.
  * @returns Promise<BlogData[]>
  */

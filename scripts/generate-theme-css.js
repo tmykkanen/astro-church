@@ -2,7 +2,7 @@
 import fs from "fs";
 
 // eslint-disable-next-line no-restricted-imports
-import config from "../src/content/site.config.json" with { type: "json" };
+import config from "../src/content-collections/site.config.json" with { type: "json" };
 
 const CUSTOM_CSS = config.theme?.customCSS || "/* No custom CSS defined */";
 

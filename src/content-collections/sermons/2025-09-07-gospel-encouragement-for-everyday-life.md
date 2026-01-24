@@ -1,10 +1,10 @@
 ---
 title: Gospel Encouragement for Everyday Life
 date: 2025-09-07
-series: src/content/series/thessalonians-gospel-encouragement-for-everyday-life.md
+series: src/content-collections/series/thessalonians-gospel-encouragement-for-everyday-life.md
 scripture:
   - 1Thess
-preacher: src/content/preachers/tyler-mykkanen.md
+preacher: src/content-collections/preachers/tyler-mykkanen.md
 spotifyURL: https://open.spotify.com/episode/3U3c0WMyKxlB6b2xtD8GRo?si=274b0a897c2f4dfb
 bulletinURL: https://drive.google.com/file/d/1wgR8wBAyKyntc8A-cqUXS1LwEMdVwcX1/view
 ---

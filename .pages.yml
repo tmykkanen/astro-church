@@ -15,7 +15,7 @@ content:
   - name: sermons
     label: Sermons
     type: collection
-    path: src/content/sermons
+    path: src/content-collections/sermons
     filename: "{fields.date}-{fields.title}.md"
     view:
       fields: [title, date, preacher, scripture]
@@ -60,7 +60,7 @@ content:
   - name: preachers
     label: Preachers
     type: collection
-    path: src/content/preachers
+    path: src/content-collections/preachers
     filename: "{primary}.md"
     fields:
       - name: name
@@ -90,7 +90,7 @@ content:
   - name: series
     label: Sermon Series
     type: collection
-    path: src/content/series
+    path: src/content-collections/series
     filename: "{primary}.md"
     view:
       fields: [title, image, book]
@@ -185,7 +185,7 @@ content:
   - name: blog
     label: Blog
     type: collection
-    path: src/content/blog
+    path: src/content-collections/blog
     filename: "{fields.date}-{fields.title}.md"
     fields:
       - { name: title, label: Title, type: string, required: true }
@@ -195,7 +195,7 @@ content:
   - name: pages
     label: Pages
     type: collection
-    path: src/content/pages
+    path: src/content-collections/pages
     filename: "{primary}.md"
     view:
       fields: [title, order]
@@ -220,7 +220,7 @@ content:
   - name: config
     label: Site Config
     type: file
-    path: src/content/site.config.json
+    path: src/content-collections/site.config.json
     fields:
       - name: general
         label: General Settings

@@ -17,7 +17,10 @@ const getSlugFromFilename = (val: string): string => {
 // };
 
 const siteConfig = defineCollection({
-  loader: glob({ pattern: "site.config.json", base: "./src/content/" }),
+  loader: glob({
+    pattern: "site.config.json",
+    base: "./src/content-collections/",
+  }),
   schema: z.object({
     general: z.object({
       name: z.string(),
@@ -98,7 +101,10 @@ const siteConfig = defineCollection({
 });
 
 const sermonsCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/sermons" }),
+  loader: glob({
+    pattern: "**/[^_]*.md",
+    base: "./src/content-collections/sermons",
+  }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
@@ -131,7 +137,10 @@ const sermonsCollection = defineCollection({
 });
 
 const seriesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/series" }),
+  loader: glob({
+    pattern: "**/[^_]*.md",
+    base: "./src/content-collections/series",
+  }),
   schema: z.object({
     title: z.string(),
     image: z.string().optional(),
@@ -212,7 +221,10 @@ const seriesCollection = defineCollection({
 });
 
 const preachersCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/preachers" }),
+  loader: glob({
+    pattern: "**/[^_]*.md",
+    base: "./src/content-collections/preachers",
+  }),
   schema: z.object({
     name: z.string(),
     isGuest: z.boolean(),
@@ -222,7 +234,7 @@ const preachersCollection = defineCollection({
 });
 
 const pagesCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content-collections/pages" }),
   schema: z.object({
     title: z.string(),
     order: z.number().optional(),
@@ -231,7 +243,10 @@ const pagesCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/blog" }),
+  loader: glob({
+    pattern: "**/[^_]*.md",
+    base: "./src/content-collections/blog",
+  }),
   schema: z.object({
     title: z.string(),
     date: z.date(),

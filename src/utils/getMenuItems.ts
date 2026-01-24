@@ -21,7 +21,9 @@ const getSimplifiedPageData = async (): Promise<SimplifiedPageData[]> => {
 
   return pages.map((page) => ({
     id: page.id.split("/"),
-    path: page.filePath!.replace("src/content/pages/", "").split("/"),
+    path: page
+      .filePath!.replace("src/content-collections/pages/", "")
+      .split("/"),
     label: page.data.title,
     order: page.data.order,
     type: page.data.type,
