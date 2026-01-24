@@ -7,13 +7,13 @@ import Search from "@/components/Filters/Search";
 import { getFilterTitle } from "@/components/Filters/getFilterTitle";
 import { StyledText } from "@/components/StyledText";
 import { Button } from "@/components/ui/button";
+import { useFilters } from "@/hooks/useFilters";
 import type {
   BlogData,
   PreacherData,
   SeriesData,
   SermonData,
 } from "@/lib/types";
-import { useFilters } from "@/lib/useFilters";
 
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */

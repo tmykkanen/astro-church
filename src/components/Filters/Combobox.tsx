@@ -16,6 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useNanostoreURLSync } from "@/hooks/useNanostoreURLSync";
 import {
   type PreacherData,
   type SeriesData,
@@ -23,7 +24,6 @@ import {
   isSeriesCollection,
   isStringArray,
 } from "@/lib/types";
-import { useNanostoreURLSync } from "@/lib/useNanostoreURLSync";
 import { cn } from "@/lib/utils";
 
 /* -------------------------------------------------------------------------- */
