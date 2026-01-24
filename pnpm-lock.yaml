@@ -177,9 +177,6 @@ importers:
       globals:
         specifier: ^17.1.0
         version: 17.1.0
-      hastscript:
-        specifier: ^9.0.1
-        version: 9.0.1
       knip:
         specifier: ^5.82.1
         version: 5.82.1(@types/node@25.0.10)(typescript@5.9.3)
@@ -210,9 +207,6 @@ importers:
       typescript-eslint:
         specifier: ^8.53.1
         version: 8.53.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      unist-util-visit:
-        specifier: ^5.1.0
-        version: 5.1.0
 
 packages:
 
