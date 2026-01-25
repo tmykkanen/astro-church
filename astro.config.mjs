@@ -6,8 +6,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import reactCompilerPlugin from "babel-plugin-react-compiler";
-// md parsing
-import remarkDirective from "remark-directive";
 
 const SITE_URL =
   process.env.CONTEXT === "production"

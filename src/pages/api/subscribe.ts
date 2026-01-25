@@ -72,7 +72,7 @@ export const POST: APIRoute = async ({ request }) => {
     await pause(1000);
 
     // Create new contact
-    const { data, error: createError } = await resend.contacts.create({
+    const { error: createError } = await resend.contacts.create({
       email,
       firstName,
       lastName,
@@ -82,11 +82,10 @@ export const POST: APIRoute = async ({ request }) => {
     if (createError) throw new Error(createError.message);
 
     // Add contact to general segment
-    const { data: segment, error: addToSegmentError } =
-      await resend.contacts.segments.add({
-        email,
-        segmentId: RESEND_SEGMENT_ID,
-      });
+    const { error: addToSegmentError } = await resend.contacts.segments.add({
+      email,
+      segmentId: RESEND_SEGMENT_ID,
+    });
 
     if (addToSegmentError) throw new Error(addToSegmentError.message);
 
