@@ -56,6 +56,7 @@
   "devDependencies": {
     "@astrojs/netlify": "^6.6.4",
     "@astrojs/react": "^4.4.2",
+    "@eslint/compat": "^2.0.1",
     "@eslint/js": "^9.39.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
