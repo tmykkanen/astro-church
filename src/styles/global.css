@@ -42,6 +42,7 @@
 @theme {
   --breakpoint-xs: 24rem;
   --layout-base: 70rem;
+  --layout-sermon: 40rem;
   --layout-full: 100%;
 }
 

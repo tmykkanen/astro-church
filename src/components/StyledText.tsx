@@ -14,6 +14,7 @@ const textVariants = cva("", {
       heading: "text-xl  uppercase md:text-2xl tracking-wider",
       display: "text-xl font-bold uppercase md:text-2xl",
       displayLG: "text-xl md:text-3xl uppercase font-bold",
+      sermonHeading: "text-3xl font-bold uppercase sm:text-5xl",
       displayXL: "text-5xl font-bold uppercase sm:text-7xl",
     },
   },

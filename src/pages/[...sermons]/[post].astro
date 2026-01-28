@@ -46,9 +46,9 @@ const { Content: PreacherContent } = await render(page.preacher);
 ---
 
 <BaseLayout pageTitle={page.data.title}>
-  <main class="layout-base gap-4 py-8">
+  <main class="layout-sermon gap-4 py-8">
     <div class="flex flex-col gap-4">
-      <StyledText as="h1" variant="displayXL"> {title}</StyledText>
+      <StyledText as="h1" variant="sermonHeading"> {title}</StyledText>
       <Meta
         {date}
         {scripture}
