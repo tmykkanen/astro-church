@@ -1,0 +1,30 @@
+---
+import {
+  allBlogData,
+  allPreachersData,
+  allSeriesData,
+  allSermonData,
+} from "@/data/contentCollectionDataFetching";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { TanstackRouterProvider } from "@/tanstack/entry";
+import { paths } from "@/utils/findPathByType";
+
+// Get static paths
+export const getStaticPaths = () => {
+  return paths.blog?.path ? [{ params: { blog: paths.blog.path } }] : [];
+};
+---
+
+<BaseLayout pageTitle={paths.blog?.label || "Blog"}>
+  <main class="layout-base gap-8 py-8">
+    <h1 class="sr-only">Blog</h1>
+    <section class="flex flex-col gap-2">
+      <TanstackRouterProvider
+        type="blog"
+        allBlogData={allBlogData}
+        paths={paths}
+        client:only="react"
+      />
+    </section>
+  </main>
+</BaseLayout>
