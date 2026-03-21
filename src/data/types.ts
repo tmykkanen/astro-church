@@ -38,6 +38,14 @@ export const isPreacherCollection = (
   );
 };
 
+export function isSermonDataArray(data: unknown[]): data is SermonData[] {
+  return (
+    Array.isArray(data) &&
+    data.length > 0 &&
+    data.every((item) => item.collection === "sermons")
+  );
+}
+
 export const isSermonCollection = (
   data: CollectionArray,
 ): data is SermonData[] => {
@@ -122,4 +130,13 @@ export type Paths = {
   blog: DynamicPath | undefined;
   sermons: DynamicPath | undefined;
   events: DynamicPath | undefined;
+};
+
+export type QueryProps = {
+  q: string;
+  series: string;
+  preacher: string;
+  from: string;
+  to: string;
+  tag: string;
 };
