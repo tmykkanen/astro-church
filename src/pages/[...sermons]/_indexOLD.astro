@@ -1,0 +1,43 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { paths } from "@/utils/findPathByType";
+import SermonIndex from "./_components/SermonIndex";
+import {
+  siteConfig,
+  allSermonData,
+  allPreachersData,
+  allSeriesData,
+} from "@/data/contentCollectionDataFetching";
+import LatestSermon from "./_components/LatestSermon.astro";
+import FilteredSermons from "./_components/FilteredSermons";
+
+// Get static paths
+export const getStaticPaths = () => {
+  return paths.sermons?.path
+    ? [{ params: { sermons: paths.sermons.path } }]
+    : [];
+};
+---
+
+<BaseLayout pageTitle={paths.sermons?.label || "Sermons"}>
+  <main class="layout-base gap-8 py-8">
+    <h1 class="sr-only">Sermons</h1>
+    <section class="flex flex-col gap-4">
+      <LatestSermon
+        latestSermon={allSermonData[0]}
+        paths={paths}
+        siteConfig={siteConfig}
+      />
+    </section>
+    <section class="flex flex-col gap-2">
+      <FilteredSermons client:only="react" />
+    </section>
+
+    <!-- <SermonIndex
+      paths={paths}
+      allSermonData={allSermonData}
+      siteConfig={siteConfig}
+      client:load
+    /> -->
+  </main>
+</BaseLayout>

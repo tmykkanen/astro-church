@@ -34,6 +34,12 @@ const findPathByType = (
   return results[0];
 };
 
+export type Paths = {
+  blog: DynamicPath | undefined;
+  events: DynamicPath | undefined;
+  sermons: DynamicPath | undefined;
+};
+
 export const paths = {
   blog: findPathByType(menu, "blog"),
   events: findPathByType(menu, "events"),

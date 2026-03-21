@@ -1,0 +1,55 @@
+---
+import { format as datefnsFormat } from "date-fns";
+
+import ButtonLink from "@/components/ButtonLink";
+import Meta from "@/components/Meta";
+import SermonMediaEmbed from "@/components/SermonMediaEmbed";
+import StyledText from "@/components/StyledText";
+import {
+  allSermonData,
+  siteConfig,
+} from "@/data/contentCollectionDataFetching";
+import { paths } from "@/utils/findPathByType";
+
+const latestSermon = allSermonData[0];
+
+const latestSermonDateFormatted = datefnsFormat(
+  new Date(
+    latestSermon.data.date.valueOf() +
+      latestSermon.data.date.getTimezoneOffset() * 60 * 1000,
+  ),
+  "LLL dd, yyyy",
+);
+const youtube = siteConfig?.data.general.youtube ?? null;
+const youtubeFallbackSearch = youtube
+  ? `${youtube}/search?query=${latestSermonDateFormatted}`
+  : null;
+---
+
+<StyledText as="h2" variant="heading"> Latest Sermon </StyledText>
+<ButtonLink
+  variant="link"
+  href={`/${paths.sermons?.path}/${latestSermon.id}`}
+  className="hover:text-primary h-fit justify-start p-0"
+>
+  <StyledText as="span" variant="subheading">
+    {latestSermon.data.title}
+  </StyledText>
+</ButtonLink>
+
+<Meta
+  date={latestSermon.data.date}
+  scripture={latestSermon.data.scripture}
+  preacher={latestSermon.preacher.data.name}
+  series={latestSermon.series.data.title}
+  linked
+  paths={paths}
+/>
+
+<SermonMediaEmbed
+  url={latestSermon.data.mediaURL}
+  title={latestSermon.data.title}
+  youtubeFallbackSearch={youtubeFallbackSearch}
+  isCompact={true}
+  client:load
+/>
