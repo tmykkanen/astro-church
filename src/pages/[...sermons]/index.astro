@@ -5,9 +5,9 @@ import {
   allSermonData,
 } from "@/data/contentCollectionDataFetching";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { TanstackRouterProvider } from "@/tanstack/entry";
 import { paths } from "@/utils/findPathByType";
 import LatestSermon from "./_components/LatestSermon.astro";
+import FilteredSermons from "./_components/FilteredSermons";
 
 // Get static paths
 export const getStaticPaths = () => {
@@ -24,12 +24,11 @@ export const getStaticPaths = () => {
       <LatestSermon />
     </section>
     <section class="flex flex-col gap-2">
-      <TanstackRouterProvider
-        type="sermon"
-        allSermonData={allSermonData}
-        allSeriesData={allSeriesData}
-        allPreachersData={allPreachersData}
-        paths={paths}
+      <FilteredSermons
+        {allSermonData}
+        {allPreachersData}
+        {allSeriesData}
+        {paths}
         client:only="react"
       />
     </section>
