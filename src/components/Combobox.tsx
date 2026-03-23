@@ -16,13 +16,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { PreacherData, QueryProps, SeriesData } from "@/data/types";
+import type { PreacherData, SeriesData } from "@/data/types";
 import { cn } from "@/lib/utils";
 
 // import type { SearchSchemaProps } from "../routes/$all";
 
 interface ComboboxProps {
-  type: keyof QueryProps;
+  type: "series" | "preacher" | "tag";
   data: SeriesData[] | PreacherData[] | string[];
   value: string;
   setValue: (v: string) => void;

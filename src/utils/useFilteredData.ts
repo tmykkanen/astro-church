@@ -126,8 +126,6 @@ export const useFilteredData = (data: SermonData[] | BlogData[]) => {
     }
   }
 
-  console.log(filteredData);
-
   return filteredData;
 };
 

@@ -1,6 +1,6 @@
 import { CalendarDate, parseDate } from "@internationalized/date";
 import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
-import { type Dispatch, type FC, type SetStateAction } from "react";
+import { type FC } from "react";
 import {
   Button,
   Calendar,
