@@ -12,7 +12,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/sitemap": "^3.7.1",
     "@fullcalendar/core": "^6.1.20",
     "@fullcalendar/google-calendar": "^6.1.20",
     "@fullcalendar/list": "^6.1.20",
@@ -53,8 +53,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@astrojs/netlify": "^6.6.4",
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/netlify": "^7.0.4",
+    "@astrojs/react": "^5.0.1",
     "@eslint/compat": "^2.0.1",
     "@eslint/js": "^9.39.2",
     "@tailwindcss/typography": "^0.5.19",
@@ -63,7 +63,7 @@
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.15",
+    "astro": "^6.0.8",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.5.0",
