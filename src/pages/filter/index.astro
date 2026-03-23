@@ -1,0 +1,15 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FilterTest from "./_components/filterTest";
+import { NuqsAdapter } from "nuqs/adapters/react";
+import FilterWrapper from "./_components/filterWrapper";
+import NuqsWrapper from "@/components/NuqsWrapper";
+---
+
+<BaseLayout pageTitle="Filter">
+  <h1>Filter Test Heading</h1>
+  <FilterWrapper client:only="react" />
+  <!-- <NuqsWrapper client:only="react">
+    <FilterTest />
+  </NuqsWrapper> -->
+</BaseLayout>
