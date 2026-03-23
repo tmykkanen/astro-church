@@ -1,68 +1,50 @@
-import * as React from "react";
+import type { FC } from "react";
 
 import Meta from "@/components/Meta";
 import StyledText from "@/components/StyledText";
-import { CardContent, Card as CardShadcn } from "@/components/ui/card";
-import {
-  type BlogData,
-  type SermonData,
-  isBlog as isBlogTypeGuard,
-  isSermon as isSermonTypeGuard,
-} from "@/data/types";
-import type { Paths } from "@/data/types";
+import { CardContent, Card as CardRoot } from "@/components/ui/card";
+import type { BlogData, Paths, SermonData } from "@/data/types";
 
-interface CardCustomProps {
-  data: SermonData | BlogData;
+interface CardProps {
   paths: Paths;
+  data: SermonData | BlogData;
 }
 
-const Card: React.FC<CardCustomProps> = ({ data: inputData, paths }) => {
-  const {
-    id,
-    data: { title, date },
-  } = inputData;
-
-  const isSermon = isSermonTypeGuard(inputData);
-  const isBlog = isBlogTypeGuard(inputData);
-
-  const baseUrl = isSermon
-    ? paths["sermons"]?.path
-    : isBlog
-      ? paths["blog"]?.path
-      : "";
-
+const Card: FC<CardProps> = ({ paths, data: itemData }) => {
   return (
-    <CardShadcn className="bg-muted rounded-sm border-none py-0 shadow-sm outline-none">
+    <CardRoot className="bg-muted rounded-sm border-none py-0 shadow-sm outline-none">
       <CardContent className="flex flex-row p-0">
         <a
-          href={`/${baseUrl}/${id}`}
+          href={`/${itemData.collection === "sermons" ? paths.sermons?.path : paths.blog?.path}/${itemData.id}`}
           className="flex max-h-48 w-full flex-row rounded-sm"
         >
-          {isSermon && inputData.series.data.image && (
+          {itemData.collection === "sermons" && itemData.series.data.image && (
             <img
-              src={inputData.series.data.image}
-              alt="series"
+              src={itemData.series.data.image}
+              alt="Sermon Series Image"
               className="my-4 ml-4 h-20 w-20 self-center rounded-sm object-cover object-center md:m-0 md:h-48 md:w-48 md:rounded-none md:rounded-l-sm"
             />
           )}
           <div className="flex flex-2/3 flex-col justify-center gap-2 p-4 md:p-8">
             <StyledText as="h3" variant="subheading">
-              {title}
+              {itemData.data.title}
             </StyledText>
             <Meta
-              date={date}
+              date={itemData.data.date}
               scripture={
-                isSermon && inputData.data.scripture
-                  ? inputData.data.scripture
+                itemData.collection === "sermons" && itemData.data.scripture
+                  ? itemData.data.scripture
                   : undefined
               }
               preacher={
-                isSermon && inputData.preacher.data.name
-                  ? inputData.preacher.data.name
+                itemData.collection === "sermons" && itemData.preacher.data.name
+                  ? itemData.preacher.data.name
                   : undefined
               }
               tags={
-                isBlog && inputData.data.tags ? inputData.data.tags : undefined
+                itemData.collection === "blog" && itemData.data.tags
+                  ? itemData.data.tags
+                  : undefined
               }
               variant="outline"
               paths={paths}
@@ -70,7 +52,7 @@ const Card: React.FC<CardCustomProps> = ({ data: inputData, paths }) => {
           </div>
         </a>
       </CardContent>
-    </CardShadcn>
+    </CardRoot>
   );
 };
 

@@ -22,11 +22,11 @@ export default defineConfig([
   includeIgnoreFile(gitignorePath, "Imported .gitignore patterns"),
 
   // 2. General Rules (Applies to all files)
-  {
-    rules: {
-      "no-restricted-imports": ["error", { patterns: [".*"] }], // No relative imports
-    },
-  },
+  // {
+  //   rules: {
+  //     "no-restricted-imports": ["error", { patterns: [".*"] }], // No relative imports
+  //   },
+  // },
 
   // 3. Main App Config (JS, TS, React)
   {

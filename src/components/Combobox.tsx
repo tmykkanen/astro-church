@@ -1,5 +1,5 @@
 import { Check, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { type FC, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,98 +16,46 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  type PreacherData,
-  type SeriesData,
-  isPreacherCollection,
-  isSeriesCollection,
-  isStringArray,
-} from "@/data/types";
+import type { PreacherData, SeriesData } from "@/data/types";
 import { cn } from "@/lib/utils";
-import useNanostoreURLSync from "@/utils/useNanostoreURLSync";
 
-/* -------------------------------------------------------------------------- */
-/*                                 Types                                      */
-/* -------------------------------------------------------------------------- */
-type ComboboxProps =
-  | { type: "series"; data: SeriesData[] }
-  | { type: "preacher"; data: PreacherData[] }
-  | { type: "tag"; data: string[] };
+// import type { SearchSchemaProps } from "../routes/$all";
 
-interface Option {
-  key: string | number;
+interface ComboboxProps {
+  type: "series" | "preacher" | "tag";
+  data: SeriesData[] | PreacherData[] | string[];
   value: string;
-  label: string;
+  setValue: (v: string) => void;
 }
 
-/* -------------------------------------------------------------------------- */
-/*                               Combobox Component                           */
-/* -------------------------------------------------------------------------- */
-const Combobox: React.FC<ComboboxProps> = ({ data: inputData, type }) => {
-  /* ------------------------------------------------------------------------ */
-  /*                                  Hooks                                  */
-  /* ------------------------------------------------------------------------ */
-  const [open, setOpen] = useState(false);
-  const { value: selectedValue, setValue } = useNanostoreURLSync<string>(type);
+const Combobox: FC<ComboboxProps> = ({
+  type,
+  data,
+  value: selectedValue,
+  setValue: setSelectedValue,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  /* ------------------------------------------------------------------------ */
-  /*                               Options & Label                             */
-  /* ------------------------------------------------------------------------ */
-  let label = "";
-  let options: Option[] = [];
+  const options = data.map((item, index) => ({
+    key: typeof item === "string" ? index : item.id,
+    value: typeof item === "string" ? item : item.id,
+    label:
+      typeof item === "string"
+        ? item
+        : item.collection === "preachers"
+          ? item.data.name
+          : item.data.title,
+  }));
 
-  switch (type) {
-    case "series":
-      if (!isSeriesCollection(inputData))
-        throw new Error("Invalid data for series combobox");
-      label = "Series";
-      options = inputData.map((item) => ({
-        key: item.id,
-        value: item.id,
-        label: item.data.title,
-      }));
-      break;
-
-    case "preacher":
-      if (!isPreacherCollection(inputData))
-        throw new Error("Invalid data for preacher combobox");
-      label = "Preacher";
-      options = inputData.map((item) => ({
-        key: item.id,
-        value: item.id,
-        label: item.data.name,
-      }));
-      break;
-
-    case "tag":
-      if (!isStringArray(inputData))
-        throw new Error("Invalid data for tag combobox");
-      label = "Tag";
-      options = inputData.map((item, index) => ({
-        key: index,
-        value: item,
-        label: item,
-      }));
-      break;
-
-    default:
-      throw new Error(`Unsupported combobox type: ${type}`);
-  }
+  const handleSelect = (value: string) => {
+    setSelectedValue(value);
+    setIsOpen(false);
+  };
 
   const placeholder = options.find((o) => o.value === selectedValue)?.label;
 
-  /* ------------------------------------------------------------------------ */
-  /*                                 Handlers                                  */
-  /* ------------------------------------------------------------------------ */
+  const label = type.charAt(0).toUpperCase() + type.slice(1);
 
-  const handleSelect = (value: string) => {
-    setValue(value);
-    setOpen(false);
-  };
-
-  /* ------------------------------------------------------------------------ */
-  /*                                  Render                                    */
-  /* ------------------------------------------------------------------------ */
   return (
     <div className="inline-flex h-9 items-stretch">
       <Label
@@ -116,12 +64,12 @@ const Combobox: React.FC<ComboboxProps> = ({ data: inputData, type }) => {
       >
         {label}
       </Label>
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild id={label}>
           <Button
             variant="outline"
             role="combobox"
-            aria-expanded={open}
+            aria-expanded={isOpen}
             className={cn(
               "bg-muted text-muted-foreground -ml-px flex-[65%] justify-between overflow-hidden rounded-l-none text-sm",
               selectedValue
