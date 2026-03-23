@@ -4,7 +4,7 @@ import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import reactCompilerPlugin from "babel-plugin-react-compiler";
 
 const SITE_URL =
@@ -17,7 +17,13 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
+  fonts: [
+    {
+      name: "Poppins",
+      cssVariable: "--font-poppins",
+      provider: fontProviders.google(),
+    },
+  ],
   integrations: [
     react({
       babel: {
