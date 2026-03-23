@@ -1,14 +1,20 @@
 ---
+import { format as datefnsFormat } from "date-fns";
+
 import {
   allPreachersData,
   allSeriesData,
   allSermonData,
+  siteConfig,
 } from "@/data/contentCollectionDataFetching";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { paths } from "@/utils/findPathByType";
-import LatestSermon from "./_components/LatestSermon.astro";
 
 import FilteredSermonsWrapper from "./_components/FilteredSermonsWrapper";
+import StyledText from "@/components/StyledText";
+import ButtonLink from "@/components/ButtonLink";
+import Meta from "@/components/Meta";
+import SermonMediaEmbed from "@/components/SermonMediaEmbed";
 
 // Get static paths
 export const getStaticPaths = () => {
@@ -16,13 +22,53 @@ export const getStaticPaths = () => {
     ? [{ params: { sermons: paths.sermons.path } }]
     : [];
 };
+
+const latestSermon = allSermonData[0];
+
+const latestSermonDateFormatted = datefnsFormat(
+  new Date(
+    latestSermon.data.date.valueOf() +
+      latestSermon.data.date.getTimezoneOffset() * 60 * 1000,
+  ),
+  "LLL dd, yyyy",
+);
+const youtube = siteConfig?.data.general.youtube ?? null;
+const youtubeFallbackSearch = youtube
+  ? `${youtube}/search?query=${latestSermonDateFormatted}`
+  : null;
 ---
 
 <BaseLayout pageTitle={paths.sermons?.label || "Sermons"}>
   <main class="layout-base gap-8 py-8">
     <h1 class="sr-only">Sermons</h1>
     <section class="flex flex-col gap-4">
-      <LatestSermon />
+      <StyledText as="h2" variant="heading"> Latest Sermon </StyledText>
+      <ButtonLink
+        variant="link"
+        href={`/${paths.sermons?.path}/${latestSermon.id}`}
+        className="hover:text-primary h-fit justify-start p-0"
+      >
+        <StyledText as="span" variant="subheading">
+          {latestSermon.data.title}
+        </StyledText>
+      </ButtonLink>
+
+      <Meta
+        date={latestSermon.data.date}
+        scripture={latestSermon.data.scripture}
+        preacher={latestSermon.preacher.data.name}
+        series={latestSermon.series.data.title}
+        linked
+        paths={paths}
+      />
+
+      <SermonMediaEmbed
+        url={latestSermon.data.mediaURL}
+        title={latestSermon.data.title}
+        youtubeFallbackSearch={youtubeFallbackSearch}
+        isCompact={true}
+        client:load
+      />
     </section>
     <section class="flex flex-col gap-2">
       <FilteredSermonsWrapper
