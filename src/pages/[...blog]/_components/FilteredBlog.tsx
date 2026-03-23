@@ -10,25 +10,17 @@ import Search from "@/components/Search";
 import StyledText from "@/components/StyledText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Paths, PreacherData, SeriesData, SermonData } from "@/data/types";
+import type { BlogData, Paths } from "@/data/types";
 import getOldestDataDate from "@/utils/getOldestDataDate";
 import { queryParsers, queryUrlKeys } from "@/utils/nuqsParsers";
 import { useFilteredData } from "@/utils/useFilteredData";
-import { wait } from "@/utils/wait";
 
-interface FilteredSermonsProps {
-  allSermonData: SermonData[];
-  allSeriesData: SeriesData[];
-  allPreachersData: PreacherData[];
+interface FilteredBlogProps {
+  allBlogData: BlogData[];
   paths: Paths;
 }
 
-const FilteredSermons: FC<FilteredSermonsProps> = ({
-  allSermonData,
-  allSeriesData,
-  allPreachersData,
-  paths,
-}) => {
+const FilteredBlog: FC<FilteredBlogProps> = ({ allBlogData, paths }) => {
   const [queryState, setQueryState] = useQueryStates(queryParsers, {
     urlKeys: queryUrlKeys,
   });
@@ -36,7 +28,20 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
   const [isMounted, setIsMounted] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [hasFilters, setHasFilters] = useState(false);
-  const filteredData = useFilteredData(allSermonData);
+  const filteredData = useFilteredData(allBlogData);
+
+  const getTags = () => {
+    const postsWithTags = allBlogData.filter((i) => i.data.tags);
+    const tagSet = new Set<string>();
+
+    if (postsWithTags.length > 0) {
+      postsWithTags.forEach((post) =>
+        post.data.tags?.forEach((t) => tagSet.add(t)),
+      );
+    }
+
+    return tagSet.size === 0 ? [] : [...tagSet].sort();
+  };
 
   const handleReset = () => {
     setQueryState(null);
@@ -44,27 +49,26 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
   };
 
   useEffect(() => {
-    wait(500).then(() => setIsMounted(true));
-    // setIsMounted(true);
+    setIsMounted(true);
   }, []);
 
   useEffect(() => {
     setHasFilters(Object.values(queryState).filter((v) => v !== "").length > 0);
   }, [queryState]);
 
-  if (!isMounted) return <SermonsSkeleton />;
+  if (!isMounted) return <BlogSkeleton />;
 
   return (
     <>
       <div className="flex flex-col gap-4">
         <StyledText as="h2" variant="heading">
-          All Sermons
+          All Posts
         </StyledText>
         <div className="flex flex-col gap-4 md:flex-row">
           <Search
             value={queryState.searchInput}
             setValue={(v) => setQueryState({ searchInput: v })}
-            placeholder="Search sermons..."
+            placeholder="Search posts..."
           />
           <div className="flex content-between justify-between self-end">
             <Button
@@ -87,29 +91,21 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
             )}
           </div>
         </div>
-
         {showFilters && (
           <div className="flex flex-col gap-x-8 gap-y-4 lg:grid lg:grid-cols-2">
             <Combobox
-              data={allSeriesData}
-              type="series"
-              value={queryState.seriesSelection}
-              setValue={(v) => setQueryState({ seriesSelection: v })}
-            />
-
-            <Combobox
-              data={allPreachersData}
-              type="preacher"
-              value={queryState.preacherSelection}
-              setValue={(v) => setQueryState({ preacherSelection: v })}
+              data={getTags()}
+              type="tag"
+              value={queryState.tagSelection}
+              setValue={(v) => setQueryState({ tagSelection: v })}
             />
 
             <DatePicker
-              data={allSermonData}
+              data={allBlogData}
               type="from"
               value={queryState.fromDate}
               setValue={(v) => setQueryState({ fromDate: v })}
-              min={parseDate(getOldestDataDate(allSermonData))}
+              min={parseDate(getOldestDataDate(allBlogData))}
               max={
                 queryState.toDate
                   ? parseDate(queryState.toDate)
@@ -118,14 +114,14 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
             />
 
             <DatePicker
-              data={allSermonData}
+              data={allBlogData}
               type="to"
               value={queryState.toDate}
               setValue={(v) => setQueryState({ toDate: v })}
               min={
                 queryState.fromDate
                   ? parseDate(queryState.fromDate)
-                  : parseDate(getOldestDataDate(allSermonData))
+                  : parseDate(getOldestDataDate(allBlogData))
               }
               max={today(getLocalTimeZone())}
             />
@@ -141,21 +137,21 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
   );
 };
 
-const SermonsSkeleton = () => (
+const BlogSkeleton = () => (
   <>
     <div className="flex flex-col gap-4">
-      <Skeleton className="h-8 w-30" />
+      <Skeleton className="bg-background h-8 w-30" />
       <div className="flex flex-col gap-4 md:flex-row">
-        <Skeleton className="h-9 w-full" />
-        <Skeleton className="h-9 w-38" />
+        <Skeleton className="bg-muted h-9 w-full" />
+        <Skeleton className="bg-background h-9 w-38" />
       </div>
     </div>
     <div className="flex flex-col gap-8 pt-8 lg:grid lg:grid-cols-2">
       {Array.from({ length: 8 }).map((_, i) => (
-        <Skeleton key={i} className="h-[150px] rounded-sm" />
+        <Skeleton key={i} className="bg-muted h-[150px] rounded-sm" />
       ))}
     </div>
   </>
 );
 
-export default FilteredSermons;
+export default FilteredBlog;

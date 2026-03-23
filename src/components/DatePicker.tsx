@@ -1,10 +1,6 @@
-import {
-  CalendarDate,
-  getLocalTimeZone,
-  parseAbsoluteToLocal,
-  today,
-} from "@internationalized/date";
+import { CalendarDate, parseDate } from "@internationalized/date";
 import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { type Dispatch, type FC, type SetStateAction } from "react";
 import {
   Button,
   Calendar,
@@ -24,57 +20,42 @@ import {
 } from "react-aria-components";
 import type { ButtonProps, PopoverProps } from "react-aria-components";
 
-import type { SermonData } from "@/data/types";
+import type { BlogData, SermonData } from "@/data/types";
 import { cn } from "@/lib/utils";
-import useNanostoreURLSync from "@/utils/useNanostoreURLSync";
 
-/* -------------------------------------------------------------------------- */
-/*                                 Types                                       */
-/* -------------------------------------------------------------------------- */
 interface DatePickerProps {
-  data: SermonData[];
+  data: SermonData[] | BlogData[];
   type: "from" | "to";
+  value: string;
+  setValue: (v: string) => void;
+  min: CalendarDate;
+  max: CalendarDate;
 }
 
-/* -------------------------------------------------------------------------- */
-/*                               DatePickerCustom                              */
-/* -------------------------------------------------------------------------- */
-const DatePicker: React.FC<DatePickerProps> = ({ type, data }) => {
-  const min = getOldestSermonDate(data);
-  const max = today(getLocalTimeZone());
-
-  const label = type === "from" ? "From" : "To";
-
-  const fromValue = useNanostoreURLSync<CalendarDate>("from");
-  const toValue = useNanostoreURLSync<CalendarDate>("to");
-
-  const value = type === "from" ? fromValue.value : toValue.value;
-  const setValue = type === "from" ? fromValue.setValue : toValue.setValue;
-  const otherValue = type === "from" ? toValue.value : fromValue.value;
-
-  /* ------------------------------------------------------------------------ */
-  /*                            Clamp date to valid range                       */
-  /* ------------------------------------------------------------------------ */
-  const clampValue = (val: CalendarDate | null) => {
-    if (!val) return;
-
-    let clamped = val;
-    if (type === "from" && otherValue && val > otherValue) clamped = otherValue;
-    if (type === "to" && otherValue && val < otherValue) clamped = otherValue;
-    if (val < min) clamped = min;
-    if (val > max) clamped = max;
-
-    setValue(clamped);
-  };
+const DatePicker: FC<DatePickerProps> = ({
+  type,
+  value,
+  setValue,
+  min,
+  max,
+}) => {
+  const label = type.charAt(0).toUpperCase() + type.slice(1);
 
   return (
     <DatePickerAria
       className="flex"
-      value={value}
-      onChange={setValue}
-      minValue={type === "from" ? min : (otherValue ?? min)}
-      maxValue={type === "to" ? max : (otherValue ?? max)}
-      onBlur={() => clampValue(value)}
+      value={value ? parseDate(value) : null}
+      onChange={(value) => (value ? setValue(value?.toString()) : setValue(""))}
+      minValue={min}
+      maxValue={max}
+      onBlur={() => {
+        if (!value) return;
+
+        let next = parseDate(value);
+        if (next < min) next = min;
+        if (next > max) next = max;
+        setValue(next.toString());
+      }}
     >
       <Label
         htmlFor={label}
@@ -142,7 +123,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ type, data }) => {
 };
 
 /* -------------------------------------------------------------------------- */
-/*                             RoundButton Component                            */
+/*                             RoundButton Component                          */
 /* -------------------------------------------------------------------------- */
 function RoundButton(props: ButtonProps) {
   return (
@@ -154,11 +135,12 @@ function RoundButton(props: ButtonProps) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                               Popover Wrapper                               */
+/*                               Popover Wrapper                              */
 /* -------------------------------------------------------------------------- */
 function MyPopover(props: PopoverProps) {
   return (
     <Popover
+      placement="top end"
       {...props}
       className={({ isEntering, isExiting }) =>
         `overflow-auto rounded-md bg-transparent drop-shadow-lg ${
@@ -174,28 +156,5 @@ function MyPopover(props: PopoverProps) {
     />
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/*                         Utility: Oldest Sermon Date                         */
-/* -------------------------------------------------------------------------- */
-const getOldestSermonDate = (data: SermonData[]) => {
-  const sorted = data.toSorted(
-    (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
-  );
-
-  const oldest = sorted[0].data.date;
-
-  const oldestWithOffset = new Date(
-    oldest.valueOf() + oldest.getTimezoneOffset() * 60 * 1000,
-  );
-
-  const oldestParsed = parseAbsoluteToLocal(oldestWithOffset.toISOString());
-
-  return new CalendarDate(
-    oldestParsed.year,
-    oldestParsed.month,
-    oldestParsed.day,
-  );
-};
 
 export default DatePicker;
