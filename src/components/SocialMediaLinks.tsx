@@ -1,11 +1,13 @@
 import { Icon } from "@iconify/react";
 
-import ButtonLink from "@/components/ButtonLink";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+import StyledText from "./StyledText";
+import { buttonVariants } from "./ui/button";
 
 interface SocialMediaLinksProps {
   social: {
@@ -48,15 +50,16 @@ const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({ social }) => {
 
 const SocialButton: React.FC<SocialButtonProps> = ({ name, href, icon }) => {
   return (
-    <ButtonLink
+    <StyledText
+      as={"a"}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`click link for ${name}`}
-      variant="footer-icon"
+      className={buttonVariants({ variant: "footer-icon" })}
     >
       <Icon icon={icon} />
-    </ButtonLink>
+    </StyledText>
   );
 };
 
@@ -69,15 +72,16 @@ const SocialButtonWithTooltip: React.FC<SocialButtonWithTooltipProps> = ({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <ButtonLink
+        <StyledText
+          as={"a"}
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`click link for ${name}`}
-          variant="footer-icon"
+          className={buttonVariants({ variant: "footer-icon" })}
         >
           <Icon icon={icon} />
-        </ButtonLink>
+        </StyledText>
       </TooltipTrigger>
       <TooltipContent>
         <p>{hint}</p>

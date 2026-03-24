@@ -1,5 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import * as React from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -23,17 +23,24 @@ const textVariants = cva("", {
   },
 });
 
-interface StyledTextAs {
-  as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "address" | "span";
-}
+type StyledTextProps<Tag extends ElementType> = {
+  as?: Tag;
+  variant?: VariantProps<typeof textVariants>["variant"];
+  children?: ReactNode;
+} & Omit<ComponentPropsWithoutRef<Tag>, "as" | "variant">;
 
-const StyledText: React.FC<
-  StyledTextAs & React.ComponentProps<"h1"> & VariantProps<typeof textVariants>
-> = ({ as: As, className, variant, children }, ...props) => {
+const StyledText = <Tag extends ElementType = "p">({
+  as = "p" as unknown as Tag,
+  className,
+  variant,
+  children,
+  ...props
+}: StyledTextProps<Tag>) => {
+  const Tag = as as ElementType;
   return (
-    <As className={cn(textVariants({ variant, className }))} {...props}>
+    <Tag className={cn(textVariants({ variant, className }))} {...props}>
       {children}
-    </As>
+    </Tag>
   );
 };
 

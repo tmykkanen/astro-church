@@ -1,11 +1,12 @@
 ---
 import { type ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import ButtonLink from "@/components/ButtonLink";
 import StyledText from "@/components/StyledText";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { siteConfig } from "@/data/contentCollectionDataFetching";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const hero = siteConfig?.data.body?.hero;
 const cta = siteConfig?.data.body?.cta;
@@ -53,17 +54,21 @@ const selectedImage = hero?.bgImage ? bgImages[imagePath] : null;
         />
         {
           cta?.text && (
-            <ButtonLink
-              variant="secondary"
+            <StyledText
+              as="a"
+              variant="button"
               href={cta.link ?? "#"}
               target={cta.link?.startsWith("http") ? "_blank" : "_self"}
               rel={
                 cta.link?.startsWith("http") ? "noopener noreferrer" : undefined
               }
-              className="w-full h-auto"
+              className={cn(
+                buttonVariants({ variant: "secondary" }),
+                "w-full h-auto",
+              )}
             >
-              <StyledText as="span" variant="button" set:html={cta.text} />
-            </ButtonLink>
+              {cta.text}
+            </StyledText>
           )
         }
       </div>

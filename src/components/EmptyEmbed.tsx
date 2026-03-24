@@ -1,8 +1,10 @@
 import { CircleX } from "lucide-react";
 import type { FC } from "react";
 
-import ButtonLink from "@/components/ButtonLink";
 import StyledText from "@/components/StyledText";
+import { cn } from "@/lib/utils";
+
+import { buttonVariants } from "./ui/button";
 
 interface EmptyEmbedProps {
   isCompact: boolean;
@@ -29,16 +31,19 @@ const EmptyEmbed: FC<EmptyEmbedProps> = ({
       </StyledText>
 
       {youtubeFallbackSearch && (
-        <ButtonLink
-          variant="link"
+        <StyledText
+          as={"a"}
           href={youtubeFallbackSearch}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="link to search youtube channel"
-          className="text-foreground pl-0"
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "text-foreground pl-0",
+          )}
         >
           Click here to search our YouTube channel.
-        </ButtonLink>
+        </StyledText>
       )}
     </div>
 

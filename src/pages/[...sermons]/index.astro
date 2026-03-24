@@ -1,5 +1,7 @@
 ---
 import { format as datefnsFormat } from "date-fns";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 import {
   allPreachersData,
@@ -12,7 +14,6 @@ import { paths } from "@/utils/findPathByType";
 
 import FilteredSermonsWrapper from "./_components/FilteredSermonsWrapper";
 import StyledText from "@/components/StyledText";
-import ButtonLink from "@/components/ButtonLink";
 import Meta from "@/components/Meta";
 import SermonMediaEmbed from "@/components/SermonMediaEmbed";
 
@@ -43,15 +44,18 @@ const youtubeFallbackSearch = youtube
     <h1 class="sr-only">Sermons</h1>
     <section class="flex flex-col gap-4">
       <StyledText as="h2" variant="heading"> Latest Sermon </StyledText>
-      <ButtonLink
-        variant="link"
+
+      <StyledText
+        as="a"
+        variant="subheading"
         href={`/${paths.sermons?.path}/${latestSermon.id}`}
-        className="hover:text-primary h-fit justify-start p-0"
+        className={cn(
+          buttonVariants({ variant: "link" }),
+          "hover:decoration-primary h-fit w-fit justify-start p-0 text-foreground",
+        )}
       >
-        <StyledText as="span" variant="subheading">
-          {latestSermon.data.title}
-        </StyledText>
-      </ButtonLink>
+        {latestSermon.data.title}
+      </StyledText>
 
       <Meta
         date={latestSermon.data.date}
