@@ -14,6 +14,7 @@ import type { Paths, PreacherData, SeriesData, SermonData } from "@/data/types";
 import getOldestDataDate from "@/utils/getOldestDataDate";
 import { queryParsers, queryUrlKeys } from "@/utils/nuqsParsers";
 import { useFilteredData } from "@/utils/useFilteredData";
+import { useIsMounted } from "@/utils/useIsMounted";
 import { wait } from "@/utils/wait";
 
 interface FilteredSermonsProps {
@@ -33,7 +34,9 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
     urlKeys: queryUrlKeys,
   });
 
-  const [isMounted, setIsMounted] = useState(false);
+  const { isMounted } = useIsMounted();
+
+  // const [isMounted, setIsMounted] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [hasFilters, setHasFilters] = useState(false);
   const filteredData = useFilteredData(allSermonData);
@@ -43,16 +46,16 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
     setShowFilters(false);
   };
 
-  useEffect(() => {
-    wait(500).then(() => setIsMounted(true));
-    // setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   wait(500).then(() => setIsMounted(true));
+  //   // setIsMounted(true);
+  // }, []);
 
   useEffect(() => {
     setHasFilters(Object.values(queryState).filter((v) => v !== "").length > 0);
   }, [queryState]);
 
-  if (!isMounted) return <SermonsSkeleton />;
+  if (!isMounted) return <Loading />;
 
   return (
     <>
@@ -141,7 +144,7 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
   );
 };
 
-const SermonsSkeleton = () => (
+const Loading = () => (
   <>
     <div className="flex flex-col gap-4">
       <Skeleton className="h-8 w-30" />

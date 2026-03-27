@@ -19,8 +19,6 @@ import {
 import type { PreacherData, SeriesData } from "@/data/types";
 import { cn } from "@/lib/utils";
 
-// import type { SearchSchemaProps } from "../routes/$all";
-
 interface ComboboxProps {
   type: "series" | "preacher" | "tag";
   data: SeriesData[] | PreacherData[] | string[];

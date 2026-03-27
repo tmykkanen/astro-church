@@ -15,7 +15,7 @@ import { paths } from "@/utils/findPathByType";
 import FilteredSermonsWrapper from "./_components/FilteredSermonsWrapper";
 import StyledText from "@/components/StyledText";
 import Meta from "@/components/Meta";
-import SermonMediaEmbed from "@/components/SermonMediaEmbed";
+import MediaEmbed from "@/components/MediaEmbed";
 
 // Get static paths
 export const getStaticPaths = () => {
@@ -25,18 +25,6 @@ export const getStaticPaths = () => {
 };
 
 const latestSermon = allSermonData[0];
-
-const latestSermonDateFormatted = datefnsFormat(
-  new Date(
-    latestSermon.data.date.valueOf() +
-      latestSermon.data.date.getTimezoneOffset() * 60 * 1000,
-  ),
-  "LLL dd, yyyy",
-);
-const youtube = siteConfig?.data.general.youtube ?? null;
-const youtubeFallbackSearch = youtube
-  ? `${youtube}/search?query=${latestSermonDateFormatted}`
-  : null;
 ---
 
 <BaseLayout pageTitle={paths.sermons?.label || "Sermons"}>
@@ -51,28 +39,17 @@ const youtubeFallbackSearch = youtube
         href={`/${paths.sermons?.path}/${latestSermon.id}`}
         className={cn(
           buttonVariants({ variant: "link" }),
-          "hover:decoration-primary h-fit w-fit justify-start p-0 text-foreground",
+          "hover:decoration-primary text-foreground h-fit w-fit justify-start p-0",
         )}
       >
         {latestSermon.data.title}
       </StyledText>
 
-      <Meta
-        date={latestSermon.data.date}
-        scripture={latestSermon.data.scripture}
-        preacher={latestSermon.preacher.data.name}
-        series={latestSermon.series.data.title}
-        linked
-        paths={paths}
-      />
+      <Meta data={latestSermon} linked paths={paths} />
 
-      <SermonMediaEmbed
-        url={latestSermon.data.mediaURL}
-        title={latestSermon.data.title}
-        youtubeFallbackSearch={youtubeFallbackSearch}
-        isCompact={true}
-        client:load
-      />
+      <div class="h-38">
+        <MediaEmbed data={latestSermon} isCompact={true} client:load />
+      </div>
     </section>
     <section class="flex flex-col gap-2">
       <FilteredSermonsWrapper

@@ -3,7 +3,12 @@ import type { FC } from "react";
 import Meta from "@/components/Meta";
 import StyledText from "@/components/StyledText";
 import { CardContent, Card as CardRoot } from "@/components/ui/card";
-import type { BlogData, Paths, SermonData } from "@/data/types";
+import {
+  type BlogData,
+  type Paths,
+  type SermonData,
+  isSermonData,
+} from "@/data/types";
 
 interface CardProps {
   paths: Paths;
@@ -11,13 +16,10 @@ interface CardProps {
 }
 
 const Card: FC<CardProps> = ({ paths, data: itemData }) => {
-  const isSermon = itemData.collection === "sermons";
+  const isSermon = isSermonData(itemData);
   const href = `/${isSermon ? paths.sermons?.path : paths.blog?.path}/${itemData.id}`;
   const image = isSermon ? itemData.series.data.image : undefined;
-  const scripture = isSermon ? itemData.data.scripture : undefined;
-  const preacher = isSermon ? itemData.preacher.data.name : undefined;
-  const tags = !isSermon ? itemData.data.tags : undefined;
-  const { title, date } = itemData.data;
+  const { title } = itemData.data;
 
   return (
     <CardRoot className="bg-muted rounded-sm border-none py-0 shadow-sm outline-none">
@@ -34,14 +36,7 @@ const Card: FC<CardProps> = ({ paths, data: itemData }) => {
             <StyledText as="h3" variant="subheading">
               {title}
             </StyledText>
-            <Meta
-              date={date}
-              scripture={scripture}
-              preacher={preacher}
-              tags={tags}
-              variant="outline"
-              paths={paths}
-            />
+            <Meta data={itemData} variant="outline" paths={paths} />
           </div>
         </a>
       </CardContent>

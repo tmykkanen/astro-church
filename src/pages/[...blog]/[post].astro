@@ -14,31 +14,30 @@ import type { GetStaticPaths } from "astro";
 // Get static paths
 export const getStaticPaths = (async () => {
   return paths.blog?.path
-    ? allBlogData.map((page) => ({
+    ? allBlogData.map((post) => ({
         params: {
-          post: `${paths.blog?.path}/${page.id}`,
+          post: `${paths.blog?.path}/${post.id}`,
         },
         props: {
-          page,
+          post,
         },
       }))
     : [];
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
-const { Content } = await render(page);
+const { post } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<BaseLayout pageTitle={page.data.title}>
+<BaseLayout pageTitle={post.data.title}>
   <main class="layout-base justify-items-center py-8">
     <div
       class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
     >
       <StyledText as="h1" variant="displayLG">
-        {page.data.title}
+        {post.data.title}
       </StyledText>
-      <Meta tags={page.data.tags} {paths} linked client:load />
-
+      <Meta data={post} {paths} linked client:load />
       <Content />
     </div>
   </main>

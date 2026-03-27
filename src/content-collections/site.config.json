@@ -2,7 +2,7 @@
   "general": {
     "name": "Astro Church",
     "description": "We exist to be and make eternally joyful disciples of Jesus Christ. Sojourners is a baptistic, reformed, non-denominational church in Albert Lea, Minnesota. Join us Sundays at 10am in the Skyline Plaza!",
-    "youtube": "https://www.youtube.com/@CodinginPublic"
+    "youtube": "https://www.youtube.com/@sojournerschurch7048"
   },
   "header": {
     "displayTitle": true,
@@ -15,7 +15,7 @@
     },
     "cta": {
       "text": "10 am Sundays | Click here for livestream",
-      "link": "https://www.youtube.com/watch?v=eQXG75XirdE"
+      "link": "http://youtube.com/channel/UC5HBSGOC-FxOa3-ERY5X6mw/live"
     }
   },
   "footer": {
@@ -23,7 +23,7 @@
       "sections": [
         {
           "heading": "Sundays at 10am",
-          "description": "<address>3321 Stephens Hill Ln<br />Antioch, TN 37013</address>"
+          "description": "<address>1679 West Main Street </br> Skyline Plaza </br> Albert Lea, MN 56007</address>"
         },
         {
           "heading": "Contact Us",
@@ -34,17 +34,17 @@
         {
           "name": "Facebook",
           "icon": "simple-icons:facebook",
-          "link": "https://www.facebook.com/tctnetwork"
+          "link": "https://www.facebook.com/SojournersMN"
         },
         {
           "name": "Youtube",
           "icon": "simple-icons:youtube",
-          "link": "https://www.youtube.com/@CodinginPublic"
+          "link": "https://www.youtube.com/@sojournerschurch7048"
         },
         {
           "name": "Spotify",
           "icon": "simple-icons:spotify",
-          "link": "https://open.spotify.com/artist/16QSVsPKl743hu4U5C18R8?si=Cl-bBnERRfCzrMZVwbul9w"
+          "link": "https://open.spotify.com/show/4XUQE1mKNoKG2r4Ovr7FoQ?si=18866bd4d2b84a06"
         }
       ]
     },
