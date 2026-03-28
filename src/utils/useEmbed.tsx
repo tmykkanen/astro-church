@@ -2,14 +2,16 @@ import { useState } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
+type ProviderComponent = React.FC<{
+  uri: string;
+  isCompact: boolean;
+}>;
+
 type Provider<T extends string = string> = {
   name: T;
   match: (url: string) => boolean;
   parse: (url: string) => string | null;
-  Component: React.FC<{
-    uri: string;
-    isCompact: boolean;
-  }>;
+  Component: ProviderComponent;
 };
 
 const YouTubeEmbed: React.FC<{
@@ -113,13 +115,16 @@ const providers: Provider[] = [
   },
 ];
 
-type ParsedEmbed = { provider: Provider; uri: string } | { error: string };
+type ParsedEmbed =
+  | { Component: ProviderComponent; uri: string }
+  | { error: string };
 
-export const parseEmbed = (url: string): ParsedEmbed => {
+export const useEmbed = (url: string): ParsedEmbed => {
   for (const provider of providers) {
     if (!provider.match(url)) continue;
 
     const uri = provider.parse(url);
+    const Component = provider.Component;
 
     if (!uri) {
       return {
@@ -128,7 +133,7 @@ export const parseEmbed = (url: string): ParsedEmbed => {
     }
 
     return {
-      provider,
+      Component,
       uri,
     };
   }

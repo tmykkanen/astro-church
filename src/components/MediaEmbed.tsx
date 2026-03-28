@@ -5,7 +5,7 @@ import { type FC } from "react";
 import config from "@/content-collections/site.config.json";
 import type { SermonData } from "@/data/types";
 import { cn } from "@/lib/utils";
-import { parseEmbed } from "@/utils/embedUrlParser";
+import { useEmbed } from "@/utils/useEmbed";
 
 import StyledText from "./StyledText";
 import { buttonVariants } from "./ui/button";
@@ -25,15 +25,14 @@ const MediaEmbed: FC<MediaEmbedProps> = ({ data, isCompact }) => {
     return <FallbackComponent date={date} />;
   }
 
-  const result = parseEmbed(url);
+  const result = useEmbed(url);
 
   if ("error" in result) {
     console.warn(result.error);
     return <FallbackComponent date={date} />;
   }
 
-  const { provider, uri } = result;
-  const Component = provider.Component;
+  const { Component, uri } = result;
 
   return (
     <>
