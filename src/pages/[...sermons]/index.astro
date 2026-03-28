@@ -1,5 +1,4 @@
 ---
-import { format as datefnsFormat } from "date-fns";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -7,7 +6,6 @@ import {
   allPreachersData,
   allSeriesData,
   allSermonData,
-  siteConfig,
 } from "@/data/contentCollectionDataFetching";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { paths } from "@/utils/findPathByType";
@@ -30,27 +28,35 @@ const latestSermon = allSermonData[0];
 <BaseLayout pageTitle={paths.sermons?.label || "Sermons"}>
   <main class="layout-base gap-8 py-8">
     <h1 class="sr-only">Sermons</h1>
-    <section class="flex flex-col gap-4">
-      <StyledText as="h2" variant="heading"> Latest Sermon </StyledText>
+    {
+      latestSermon && (
+        <section class="flex min-w-0 flex-col gap-4">
+          <StyledText as="h2" variant="heading">
+            {" "}
+            Latest Sermon{" "}
+          </StyledText>
 
-      <StyledText
-        as="a"
-        variant="subheading"
-        href={`/${paths.sermons?.path}/${latestSermon.id}`}
-        className={cn(
-          buttonVariants({ variant: "link" }),
-          "hover:decoration-primary text-foreground h-fit w-fit justify-start p-0",
-        )}
-      >
-        {latestSermon.data.title}
-      </StyledText>
+          <StyledText
+            as="a"
+            variant="subheading"
+            href={`/${paths.sermons?.path}/${latestSermon.id}`}
+            className={cn(
+              buttonVariants({ variant: "link" }),
+              "hover:decoration-primary text-foreground h-fit w-fit justify-start p-0",
+            )}
+          >
+            {latestSermon.data.title}
+          </StyledText>
 
-      <Meta data={latestSermon} linked paths={paths} />
+          <Meta data={latestSermon} linked paths={paths} />
 
-      <div class="h-38">
-        <MediaEmbed data={latestSermon} isCompact={true} client:load />
-      </div>
-    </section>
+          <div class="h-38">
+            <MediaEmbed data={latestSermon} isCompact={true} client:load />
+          </div>
+        </section>
+      )
+    }
+
     <section class="flex flex-col gap-2">
       <FilteredSermonsWrapper
         {allSermonData}

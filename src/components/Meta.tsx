@@ -105,10 +105,11 @@ const Meta: React.FC<MetaProps> = ({
       {metaItems.map((item, index) => (
         <Badge
           variant={variant}
-          className={variant === "outline" ? "text-muted-foreground" : ""}
+          // className={variant === "outline" ? "text-muted-foreground" : ""}
+          className={"max-w-full truncate"}
           key={index}
         >
-          {item}
+          <span className="truncate">{item}</span>
         </Badge>
       ))}
     </div>

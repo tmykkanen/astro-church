@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Meta from "@/components/Meta";
@@ -32,7 +32,7 @@ const { Content } = await render(post);
 <BaseLayout pageTitle={post.data.title}>
   <main class="layout-base justify-items-center py-8">
     <div
-      class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
+      class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground min-w-0 lg:max-w-[80ch]"
     >
       <StyledText as="h1" variant="displayLG">
         {post.data.title}
