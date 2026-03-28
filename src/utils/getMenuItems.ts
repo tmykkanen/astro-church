@@ -1,19 +1,13 @@
 import { getCollection } from "astro:content";
 
+import type { MenuItem } from "@/data/types";
+
 interface SimplifiedPageData {
   id: string[];
   path: string[];
   label: string;
   order?: number;
   type?: string;
-}
-
-export interface MenuItem {
-  path: string;
-  label: string;
-  order: number;
-  type: string | null;
-  submenu: MenuItem[];
 }
 
 const getSimplifiedPageData = async (): Promise<SimplifiedPageData[]> => {

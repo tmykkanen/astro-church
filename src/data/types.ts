@@ -1,5 +1,6 @@
 import type { CollectionEntry as AstroCollectionEntry } from "astro:content";
 
+// DATA
 export type BlogData = AstroCollectionEntry<"blog">;
 export type SeriesData = AstroCollectionEntry<"series">;
 export type PreacherData = AstroCollectionEntry<"preachers">;
@@ -18,6 +19,16 @@ export const isBlogData = (data: SermonData | BlogData): data is BlogData => {
   return data.collection === "blog";
 };
 
+// MENU
+export interface MenuItem {
+  path: string;
+  label: string;
+  order: number;
+  type: string | null;
+  submenu: MenuItem[];
+}
+
+// PATHS
 export type DynamicPath = {
   label: string;
   path: string;

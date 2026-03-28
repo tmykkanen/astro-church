@@ -8,14 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-interface MenuItem {
-  path: string;
-  label: string;
-  order: number;
-  type: string | null;
-  submenu: MenuItem[];
-}
+import type { MenuItem } from "@/data/types";
 
 const NavMenu: React.FC<React.ComponentProps<"nav"> & { menu: MenuItem[] }> = ({
   menu,

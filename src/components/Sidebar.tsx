@@ -9,18 +9,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import type { MenuItem } from "@/data/types";
 import { cn } from "@/lib/utils";
 
 import StyledText from "./StyledText";
 import { buttonVariants } from "./ui/button";
-
-interface MenuItem {
-  path: string;
-  label: string;
-  order: number;
-  type: string | null;
-  submenu: MenuItem[];
-}
 
 const Sidebar: React.FC<{ menu: MenuItem[] }> = ({ menu }) => {
   const [isOpen, setIsOpen] = React.useState(false);

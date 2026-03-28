@@ -1,5 +1,5 @@
-import { type DynamicPath } from "@/data/types";
-import { type MenuItem, menu } from "@/utils/getMenuItems";
+import { type DynamicPath, type MenuItem } from "@/data/types";
+import { menu } from "@/utils/getMenuItems";
 
 const findPathByType = (
   menuItems: MenuItem[],
