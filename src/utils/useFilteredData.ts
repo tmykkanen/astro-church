@@ -27,7 +27,7 @@ export const useFilteredData = (data: SermonData[] | BlogData[]) => {
   let filteredData = data;
 
   // SERMON FILTERING
-  if (data[0].collection === "sermons") {
+  if (data[0]?.collection === "sermons") {
     filteredData = filteredData.filter(
       (item): item is SermonData => item.collection === "sermons",
     );
@@ -83,7 +83,7 @@ export const useFilteredData = (data: SermonData[] | BlogData[]) => {
   }
 
   // BLOG FILTERING
-  if (data[0].collection === "blog") {
+  if (data[0]?.collection === "blog") {
     filteredData = filteredData.filter(
       (item): item is BlogData => item.collection === "blog",
     );
@@ -143,11 +143,11 @@ const getRegExpFromOsis = (osis: string) => {
     // Explicitly expand array to include each chapter in range
     .map((refArray) => {
       if (refArray.length < 2) return refArray;
-      const startChapter = parseInt(refArray[0].split(".")[1]);
-      const endChapter = parseInt(refArray[1].split(".")[1]);
+      const startChapter = parseInt(refArray[0]?.split(".")[1] ?? "");
+      const endChapter = parseInt(refArray[1]?.split(".")[1] ?? "");
       const expandedArray = [...refArray];
       for (let i = startChapter + 1; i < endChapter; i++) {
-        expandedArray.push(refArray[0].split(".")[0] + "." + i);
+        expandedArray.push(refArray[0]?.split(".")[0] + "." + i);
       }
       return expandedArray;
     })
@@ -182,14 +182,14 @@ const sortByScriptureRef = (data: SermonData[], refRegExp: RegExp[]) => {
     if (!bMatch) return -1;
 
     // split into BCV array
-    const aRef = aMatch.split("-")[0].split(".");
-    const bRef = bMatch.split("-")[0].split(".");
+    const aRef = aMatch.split("-")[0]?.split(".");
+    const bRef = bMatch.split("-")[0]?.split(".");
 
-    const aChapter = parseInt(aRef[1]) || 0;
-    const aVerse = parseInt(aRef[2]) || 0;
+    const aChapter = aRef && aRef[1] ? parseInt(aRef[1]) : 0;
+    const aVerse = aRef && aRef[2] ? parseInt(aRef[2]) : 0;
 
-    const bChapter = parseInt(bRef[1]) || 0;
-    const bVerse = parseInt(bRef[2]) || 0;
+    const bChapter = bRef && bRef[1] ? parseInt(bRef[1]) : 0;
+    const bVerse = bRef && bRef[2] ? parseInt(bRef[2]) : 0;
 
     // sort by chapter for different chapters
     if (aChapter !== bChapter) {

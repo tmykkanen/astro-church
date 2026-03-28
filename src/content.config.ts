@@ -16,7 +16,8 @@ const localDate = z.preprocess((val) => {
   }
   if (typeof val === "string") {
     const [y, m, d] = val.split("-").map(Number);
-    return new Date(y, m - 1, d);
+    if (y && m && d) return new Date(y, m - 1, d);
+    return val;
   }
   return val;
 }, z.date());

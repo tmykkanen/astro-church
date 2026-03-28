@@ -11,8 +11,8 @@ import StyledText from "@/components/StyledText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { BlogData, Paths } from "@/data/types";
-import getOldestDataDate from "@/utils/getOldestDataDate";
 import { queryParsers, queryUrlKeys } from "@/utils/nuqsParsers";
+import { toCalendarDate } from "@/utils/toCalendarDate";
 import { useFilteredData } from "@/utils/useFilteredData";
 
 interface FilteredBlogProps {
@@ -105,7 +105,11 @@ const FilteredBlog: FC<FilteredBlogProps> = ({ allBlogData, paths }) => {
               type="from"
               value={queryState.fromDate}
               setValue={(v) => setQueryState({ fromDate: v })}
-              min={parseDate(getOldestDataDate(allBlogData))}
+              min={
+                allBlogData[0]?.data.date
+                  ? toCalendarDate(allBlogData[0]?.data.date)
+                  : null
+              }
               max={
                 queryState.toDate
                   ? parseDate(queryState.toDate)
@@ -121,7 +125,9 @@ const FilteredBlog: FC<FilteredBlogProps> = ({ allBlogData, paths }) => {
               min={
                 queryState.fromDate
                   ? parseDate(queryState.fromDate)
-                  : parseDate(getOldestDataDate(allBlogData))
+                  : allBlogData[0]?.data.date
+                    ? toCalendarDate(allBlogData[0]?.data.date)
+                    : null
               }
               max={today(getLocalTimeZone())}
             />

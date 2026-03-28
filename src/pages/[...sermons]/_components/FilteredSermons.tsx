@@ -11,11 +11,10 @@ import StyledText from "@/components/StyledText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Paths, PreacherData, SeriesData, SermonData } from "@/data/types";
-import getOldestDataDate from "@/utils/getOldestDataDate";
 import { queryParsers, queryUrlKeys } from "@/utils/nuqsParsers";
+import { toCalendarDate } from "@/utils/toCalendarDate";
 import { useFilteredData } from "@/utils/useFilteredData";
 import { useIsMounted } from "@/utils/useIsMounted";
-import { wait } from "@/utils/wait";
 
 interface FilteredSermonsProps {
   allSermonData: SermonData[];
@@ -112,7 +111,11 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
               type="from"
               value={queryState.fromDate}
               setValue={(v) => setQueryState({ fromDate: v })}
-              min={parseDate(getOldestDataDate(allSermonData))}
+              min={
+                allSermonData[0]?.data.date
+                  ? toCalendarDate(allSermonData[0]?.data.date)
+                  : null
+              }
               max={
                 queryState.toDate
                   ? parseDate(queryState.toDate)
@@ -128,7 +131,9 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
               min={
                 queryState.fromDate
                   ? parseDate(queryState.fromDate)
-                  : parseDate(getOldestDataDate(allSermonData))
+                  : allSermonData[0]?.data.date
+                    ? toCalendarDate(allSermonData[0]?.data.date)
+                    : null
               }
               max={today(getLocalTimeZone())}
             />

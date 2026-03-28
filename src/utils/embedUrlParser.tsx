@@ -15,7 +15,7 @@ type Provider<T extends string = string> = {
 const YouTubeEmbed: React.FC<{
   uri: string;
   isCompact: boolean;
-}> = ({ uri, isCompact }) => {
+}> = ({ uri }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const thumbnail = `https://i.ytimg.com/vi/${uri}/hqdefault.jpg`;

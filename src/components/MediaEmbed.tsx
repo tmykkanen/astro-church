@@ -17,11 +17,11 @@ interface MediaEmbedProps {
 
 const MediaEmbed: FC<MediaEmbedProps> = ({ data, isCompact }) => {
   const {
-    data: { title, date, mediaURL: url },
+    data: { date, mediaURL: url },
   } = data;
 
   if (!url) {
-    console.warn("No media URL was provided.");
+    console.warn("\n*****\nNo media URL was provided.\n****");
     return <FallbackComponent date={date} />;
   }
 
