@@ -8,8 +8,8 @@ import subscribeFormSchema from "@/data/subcribeFormSchema";
 
 export const prerender = false;
 
-const RESEND_SEGMENT_ID = import.meta.env["RESEND_SEGMENT_ID"];
-const RESEND_API_KEY = import.meta.env["RESEND_API_KEY"];
+const RESEND_SEGMENT_ID = process.env["RESEND_SEGMENT_ID"];
+const RESEND_API_KEY = process.env["RESEND_API_KEY"];
 
 const resend = new Resend(RESEND_API_KEY);
 
