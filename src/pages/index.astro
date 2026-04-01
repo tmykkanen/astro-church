@@ -33,11 +33,11 @@ const selectedImage = hero?.bgImage ? bgImages[imagePath] : null;
             <Image
               src={selectedImage()}
               alt="Homepage background"
-              class="absolute inset-0 w-full h-full object-cover"
+              class="absolute inset-0 h-full w-full object-cover"
               priority
             />
             <div
-              class="bg-muted col-start-1 row-start-1 h-full w-full opacity-85 z-10"
+              class="bg-muted z-10 col-start-1 row-start-1 h-full w-full opacity-85"
               aria-hidden="true"
             />
           </>
@@ -45,7 +45,7 @@ const selectedImage = hero?.bgImage ? bgImages[imagePath] : null;
       }
 
       <!-- HERO CONTENT -->
-      <div class="layout-base isolate col-start-1 row-start-1 gap-y-8 z-20">
+      <div class="layout-base isolate z-20 col-start-1 row-start-1 gap-y-8">
         <StyledText
           as="h2"
           id="hero-heading"
@@ -64,7 +64,7 @@ const selectedImage = hero?.bgImage ? bgImages[imagePath] : null;
               }
               className={cn(
                 buttonVariants({ variant: "secondary" }),
-                "w-full h-auto",
+                "h-auto w-full",
               )}
             >
               {cta.text}
