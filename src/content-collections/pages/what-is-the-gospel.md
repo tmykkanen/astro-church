@@ -2,6 +2,7 @@
 title: What is the Gospel?
 order: 5
 ---
+
 # What is the Gospel?
 
 ## God Relates
