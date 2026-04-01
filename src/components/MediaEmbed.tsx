@@ -21,7 +21,7 @@ const MediaEmbed: FC<MediaEmbedProps> = ({ data, isCompact }) => {
   } = data;
 
   if (!url) {
-    console.warn("\n*****\nNo media URL was provided.\n****");
+    console.warn("No media URL was provided.");
     return <FallbackComponent date={date} />;
   }
 
