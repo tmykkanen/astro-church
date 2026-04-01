@@ -1,4 +1,4 @@
 ---
-title: Life Together
+title: Index
 order: 2
 ---

@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-// import MarkdownContentWrapper from "@/components/MarkdownContentWrapper.astro";
 
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const pages = await getCollection("pages", ({ data }) => {
-    return data.type === undefined;
+  const pages = await getCollection("pages", ({ data, filePath }) => {
+    return (
+      data.type === undefined && !filePath?.toLowerCase().endsWith("index.md")
+    );
   });
   return pages.map((page) => ({
     params: { pages: page.id },
@@ -19,7 +20,7 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout pageTitle={page.data.title}>
-  <main class="layout-base justify-items-center py-8 min-h-120">
+  <main class="layout-base min-h-120 justify-items-center py-8">
     <div
       class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
     >

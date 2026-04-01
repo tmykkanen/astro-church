@@ -1,4 +1,4 @@
 ---
-title: About Us
+title: Index
 order: 1
 ---

@@ -15,27 +15,48 @@ const sortItems = (items: MenuItem[]): MenuItem[] =>
     .map((item) => ({ ...item, submenu: sortItems(item.submenu) }));
 
 const buildMenu = (
-  pages: { id: string; label: string; order?: number; type?: string }[],
+  pages: {
+    id: string;
+    filePath?: string;
+    label: string;
+    order?: number;
+    type?: string;
+  }[],
 ): MenuItem[] => {
   const root: Record<string, MenuItem> = {};
 
-  for (const { id, label, order = DEFAULT_ORDER, type = null } of pages) {
+  for (const {
+    id,
+    filePath,
+    label,
+    order = DEFAULT_ORDER,
+    type = null,
+  } of pages) {
     const parts = id.split("/").filter(Boolean);
 
-    if (parts.length === 0) continue;
+    if (!parts?.length) continue;
 
     parts.reduce(
       (siblings, part, i) => {
         const path = parts.slice(0, i + 1).join("/");
 
         const isLeaf = i === parts.length - 1;
+        const isIndex = filePath?.split("/").slice(-1)[0] === "index.md";
+
+        // Determine node label
+        let nodeLabel: string;
+        if (isIndex) {
+          nodeLabel = toTitleCase(part);
+        } else {
+          nodeLabel = isLeaf ? label : toTitleCase(part);
+        }
 
         let node = siblings.find((n) => n.path === path);
 
         if (!node) {
           node = {
             path,
-            label: isLeaf ? label : toTitleCase(part),
+            label: nodeLabel,
             order: DEFAULT_ORDER,
             type: null,
             submenu: [],
@@ -44,7 +65,6 @@ const buildMenu = (
         }
 
         if (isLeaf) {
-          node.label = label;
           node.order = order;
           node.type = type;
         }
@@ -86,6 +106,7 @@ validateUniquePageTypes(pages, ["blog", "events", "sermons"]);
 export const menu = buildMenu(
   pages.map((p) => ({
     id: p.id,
+    filePath: p.filePath,
     label: p.data.title,
     order: p.data.order,
     type: p.data.type,
