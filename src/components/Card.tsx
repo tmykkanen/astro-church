@@ -36,7 +36,12 @@ const Card: FC<CardProps> = ({ paths, data: itemData }) => {
             <StyledText as="h3" variant="subheading">
               {title}
             </StyledText>
-            <Meta data={itemData} variant="outline" paths={paths} />
+            <Meta
+              data={itemData}
+              variant="outline"
+              paths={paths}
+              linked={false}
+            />
           </div>
         </a>
       </CardContent>

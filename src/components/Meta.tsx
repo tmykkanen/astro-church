@@ -1,4 +1,3 @@
-import osisToEn from "bible-reference-formatter";
 import { format as datefnsFormat } from "date-fns";
 import * as React from "react";
 import slugify from "slugify";
@@ -11,12 +10,13 @@ import {
   isBlogData,
   isSermonData,
 } from "@/data/types";
+import { cn } from "@/lib/utils";
+import { compactRef } from "@/utils/scriptureParsing";
 import useIsMobile from "@/utils/useIsMobile";
 
 interface MetaProps {
   data: SermonData | BlogData;
   variant?: "muted" | "outline";
-  compact?: boolean;
   linked?: boolean;
   paths: Paths;
 }
@@ -24,15 +24,14 @@ interface MetaProps {
 const Meta: React.FC<MetaProps> = ({
   data: dataProp,
   variant = "muted",
-  compact = undefined,
-  linked = false,
+  linked = true,
   paths,
 }) => {
   const {
     data: { date },
   } = dataProp;
 
-  const isCompact = compact ?? useIsMobile();
+  const isCompact = useIsMobile();
 
   const metaItems: (string | React.JSX.Element)[] = [];
 
@@ -50,9 +49,12 @@ const Meta: React.FC<MetaProps> = ({
     } = dataProp;
 
     if (scripture)
-      scripture.forEach((ref) =>
-        metaItems.push(osisToEn(isCompact ? "esv-short" : "esv-long", ref)),
-      );
+      scripture.forEach((ref) => {
+        if (!ref.osis || !ref.text) {
+          return;
+        }
+        metaItems.push(isCompact ? compactRef(ref.osis) : ref.text);
+      });
 
     if (preacher)
       metaItems.push(
@@ -105,8 +107,10 @@ const Meta: React.FC<MetaProps> = ({
       {metaItems.map((item, index) => (
         <Badge
           variant={variant}
-          // className={variant === "outline" ? "text-muted-foreground" : ""}
-          className={"max-w-full truncate"}
+          className={cn(
+            "max-w-full",
+            variant === "outline" ? "text-muted-foreground" : "",
+          )}
           key={index}
         >
           <span className="truncate">{item}</span>

@@ -7,6 +7,7 @@ import { paths } from "@/utils/findPathByType";
 import type { GetStaticPaths } from "astro";
 import { allSermonData } from "@/data/contentCollectionDataFetching";
 import MediaEmbed from "@/components/MediaEmbed";
+import { listInvalidScriptureRefs } from "@/utils/scriptureParsing";
 
 // Get static paths
 export const getStaticPaths = (async () => {
@@ -23,17 +24,24 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { sermon } = Astro.props;
+
 const { title, bulletinURL } = sermon.data;
 
 const { Content: SermonContent } = await render(sermon);
 const { Content: PreacherContent } = await render(sermon.preacher);
+
+// Check for invalid scripture refs
+const invalidRefs = listInvalidScriptureRefs([sermon]);
+for (const warning of invalidRefs) {
+  console.warn(warning);
+}
 ---
 
 <BaseLayout pageTitle={title}>
   <main class="layout-sermon gap-4 py-8">
     <div class="flex min-w-0 flex-col gap-4">
       <StyledText as="h1" variant="sermonHeading"> {title}</StyledText>
-      <Meta data={sermon} compact={false} linked {paths} client:load />
+      <Meta data={sermon} linked {paths} client:load />
     </div>
 
     <div class="h-90">
@@ -54,3 +62,9 @@ const { Content: PreacherContent } = await render(sermon.preacher);
     </div>
   </main>
 </BaseLayout>
+
+<script is:inline define:vars={{ invalidRefs }}>
+  for (const warning of invalidRefs) {
+    console.warn(warning);
+  }
+</script>

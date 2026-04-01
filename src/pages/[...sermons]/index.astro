@@ -14,6 +14,7 @@ import FilteredSermonsWrapper from "./_components/FilteredSermonsWrapper";
 import StyledText from "@/components/StyledText";
 import Meta from "@/components/Meta";
 import MediaEmbed from "@/components/MediaEmbed";
+import { listInvalidScriptureRefs } from "@/utils/scriptureParsing";
 
 // Get static paths
 export const getStaticPaths = () => {
@@ -23,6 +24,12 @@ export const getStaticPaths = () => {
 };
 
 const latestSermon = allSermonData[0];
+
+// Check for invalid scripture refs
+const invalidRefs = listInvalidScriptureRefs(allSermonData);
+for (const warning of invalidRefs) {
+  console.warn(warning);
+}
 ---
 
 <BaseLayout pageTitle={paths.sermons?.label || "Sermons"}>
@@ -48,7 +55,7 @@ const latestSermon = allSermonData[0];
             {latestSermon.data.title}
           </StyledText>
 
-          <Meta data={latestSermon} linked paths={paths} />
+          <Meta data={latestSermon} paths={paths} client:load />
 
           <div class="h-38">
             <MediaEmbed data={latestSermon} isCompact={true} client:load />
@@ -68,3 +75,9 @@ const latestSermon = allSermonData[0];
     </section>
   </main>
 </BaseLayout>
+
+<script is:inline define:vars={{ invalidRefs }}>
+  for (const warning of invalidRefs) {
+    console.warn(warning);
+  }
+</script>

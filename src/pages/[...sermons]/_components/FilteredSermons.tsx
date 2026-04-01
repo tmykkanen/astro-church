@@ -35,7 +35,6 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
 
   const { isMounted } = useIsMounted();
 
-  // const [isMounted, setIsMounted] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [hasFilters, setHasFilters] = useState(false);
   const filteredData = useFilteredData(allSermonData);
@@ -44,11 +43,6 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
     setQueryState(null);
     setShowFilters(false);
   };
-
-  // useEffect(() => {
-  //   wait(500).then(() => setIsMounted(true));
-  //   // setIsMounted(true);
-  // }, []);
 
   useEffect(() => {
     setHasFilters(Object.values(queryState).filter((v) => v !== "").length > 0);

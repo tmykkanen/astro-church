@@ -39,7 +39,7 @@ content:
         required: true
       - name: scripture
         label: Sermon Text
-        type: scripture
+        type: string
         list: true
       - name: preacher
         label: Preacher

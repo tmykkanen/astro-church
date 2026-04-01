@@ -39,3 +39,10 @@ export type Paths = {
   sermons: DynamicPath | undefined;
   events: DynamicPath | undefined;
 };
+
+// SCRIPTURE
+export type ParsedRef = {
+  osis: string | null;
+  text: string | null;
+  error: string | null;
+};

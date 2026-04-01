@@ -1,7 +1,8 @@
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { defineCollection, reference } from "astro:content";
-import osisToEn from "bible-reference-formatter";
+
+import { parseRef } from "./utils/scriptureParsing";
 
 const getSlugFromFilename = (val: string): string => {
   const regexRes = val?.match(/([^/?#]+)$/g);
@@ -117,9 +118,7 @@ const sermonsCollection = defineCollection({
     series: z.preprocess((val) => {
       return getSlugFromFilename(val as string);
     }, reference("series")),
-    scripture: z
-      .array(z.string().refine((val) => osisToEn("esv-long", val)))
-      .optional(),
+    scripture: z.array(z.string().transform((val) => parseRef(val))).optional(),
     preacher: z.preprocess((val) => {
       return getSlugFromFilename(val as string);
     }, reference("preachers")),
