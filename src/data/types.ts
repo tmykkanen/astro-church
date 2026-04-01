@@ -1,5 +1,6 @@
 import type { CollectionEntry as AstroCollectionEntry } from "astro:content";
 
+// DATA
 export type BlogData = AstroCollectionEntry<"blog">;
 export type SeriesData = AstroCollectionEntry<"series">;
 export type PreacherData = AstroCollectionEntry<"preachers">;
@@ -8,40 +9,26 @@ export interface SermonData extends AstroCollectionEntry<"sermons"> {
   preacher: PreacherData;
 }
 
-// Spotify Types
-export interface SpotifyPlaybackEvent {
-  data: {
-    position: number;
-    duration: number;
-    isBuffering: boolean;
-    isPaused: boolean;
-    playingURI: string;
-  };
+export const isSermonData = (
+  data: SermonData | BlogData,
+): data is SermonData => {
+  return data.collection === "sermons";
+};
+
+export const isBlogData = (data: SermonData | BlogData): data is BlogData => {
+  return data.collection === "blog";
+};
+
+// MENU
+export interface MenuItem {
+  path: string;
+  label: string;
+  order: number;
+  type: string | null;
+  submenu: MenuItem[];
 }
 
-export interface SpotifyEmbedController {
-  addListener: (
-    event: string,
-    callback: (event: SpotifyPlaybackEvent) => void,
-  ) => void;
-  removeListener: (event: string) => void;
-  play?: () => void;
-  pause?: () => void;
-  loadUri?: (uri: string) => void;
-}
-
-export interface SpotifyIframeApi {
-  createController: (
-    element: HTMLElement | null,
-    options: {
-      width: string;
-      height: string;
-      uri: string;
-    },
-    callback: (controller: SpotifyEmbedController) => void,
-  ) => void;
-}
-
+// PATHS
 export type DynamicPath = {
   label: string;
   path: string;
@@ -51,4 +38,11 @@ export type Paths = {
   blog: DynamicPath | undefined;
   sermons: DynamicPath | undefined;
   events: DynamicPath | undefined;
+};
+
+// SCRIPTURE
+export type ParsedRef = {
+  osis: string | null;
+  text: string | null;
+  error: string | null;
 };

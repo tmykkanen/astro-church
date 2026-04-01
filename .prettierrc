@@ -2,9 +2,9 @@
   "htmlWhitespaceSensitivity": "ignore",
   "plugins": [
     "@trivago/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
     "prettier-plugin-astro",
-    "prettier-plugin-packagejson"
+    "prettier-plugin-packagejson",
+    "prettier-plugin-tailwindcss"
   ],
   "importOrder": ["^node:", "<THIRD_PARTY_MODULES>", "^@/(.*)$", "^[./]"],
   "importOrderSeparation": true,

@@ -1,139 +1,93 @@
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
-interface SimplifiedPageData {
-  id: string[];
-  path: string[];
-  label: string;
-  order?: number;
-  type?: string;
-}
+import type { MenuItem } from "@/data/types";
 
-export interface MenuItem {
-  path: string;
-  label: string;
-  order: number;
-  type: string | null;
-  submenu: MenuItem[];
-}
+const DEFAULT_ORDER = 999;
 
-const getSimplifiedPageData = async (): Promise<SimplifiedPageData[]> => {
-  const pages = await getCollection("pages");
+const toTitleCase = (str: string) =>
+  str
+    .replace(/-./g, (s) => " " + s[1]?.toUpperCase())
+    .replace(/^./, (s) => s.toUpperCase());
 
-  return pages.map((page) => ({
-    id: page.id.split("/"),
-    path: page
-      .filePath!.replace("src/content-collections/pages/", "")
-      .split("/"),
-    label: page.data.title,
-    order: page.data.order,
-    type: page.data.type,
-  }));
-};
+const sortItems = (items: MenuItem[]): MenuItem[] =>
+  [...items]
+    .sort((a, b) => a.order - b.order)
+    .map((item) => ({ ...item, submenu: sortItems(item.submenu) }));
 
-const createSortedNestedMenu = (data: SimplifiedPageData[]): MenuItem[] => {
-  const menu: Record<string, MenuItem> = {};
+const buildMenu = (
+  pages: { id: string; label: string; order?: number; type?: string }[],
+): MenuItem[] => {
+  const root: Record<string, MenuItem> = {};
 
-  data.forEach((item) => {
-    const pathParts = item.id;
+  for (const { id, label, order = DEFAULT_ORDER, type = null } of pages) {
+    const parts = id.split("/").filter(Boolean);
 
-    // Top-level item (no parent folder)
-    if (pathParts.length === 1) {
-      const key = pathParts[0];
-      if (!menu[key]) {
-        menu[key] = {
-          path: key,
-          label: item.label,
-          order: item.order ?? 999,
-          type: item.type ?? null,
-          submenu: [],
-        };
-      } else {
-        // Update order & type if this is the parent definition
-        menu[key].order = item.order ?? 999;
-        menu[key].type = item.type ?? null;
-      }
-    }
-    // Nested item (has parent folder(s))
-    else {
-      const rootKey = pathParts[0];
+    if (parts.length === 0) continue;
 
-      // Create root if it doesn't exist
-      if (!menu[rootKey]) {
-        menu[rootKey] = {
-          path: rootKey,
-          label: rootKey
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" "),
-          order: 999, // Default high order for auto-generated parents
-          type: null,
-          submenu: [],
-        };
-      }
+    parts.reduce(
+      (siblings, part, i) => {
+        const path = parts.slice(0, i + 1).join("/");
 
-      // Navigate/create nested structure
-      let currentLevel = menu[rootKey].submenu;
-      let currentPath = rootKey;
+        const isLeaf = i === parts.length - 1;
 
-      for (let i = 1; i < pathParts.length; i++) {
-        currentPath += "/" + pathParts[i];
-        const isLastPart = i === pathParts.length - 1;
+        let node = siblings.find((n) => n.path === path);
 
-        if (isLastPart) {
-          // Add the final item
-          currentLevel.push({
-            path: currentPath,
-            label: item.label,
-            order: item.order ?? 999,
-            type: item.type ?? null,
+        if (!node) {
+          node = {
+            path,
+            label: isLeaf ? label : toTitleCase(part),
+            order: DEFAULT_ORDER,
+            type: null,
             submenu: [],
-          });
-        } else {
-          // Find or create intermediate parent
-          let parent = currentLevel.find((p: any) => p.path === currentPath);
-
-          if (!parent) {
-            parent = {
-              path: currentPath,
-              label: pathParts[i]
-                .split("-")
-                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(" "),
-              order: 999, // Default high order for auto-generated parents
-              type: null,
-              submenu: [],
-            };
-            currentLevel.push(parent);
-          }
-
-          currentLevel = parent.submenu;
+          };
+          siblings.push(node);
         }
-      }
+
+        if (isLeaf) {
+          node.label = label;
+          node.order = order;
+          node.type = type;
+        }
+
+        // Store top-level nodes in root map for deduplication
+        if (i === 0) root[path] ??= node;
+
+        return node.submenu;
+      },
+      Object.values(root) as MenuItem[],
+    );
+  }
+
+  return sortItems(Object.values(root));
+};
+
+const validateUniquePageTypes = (
+  allPages: CollectionEntry<"pages">[],
+  types: string[],
+) => {
+  for (const type of types) {
+    const pagesWithType = allPages.filter((p) => p.data.type === type);
+
+    if (pagesWithType.length > 1) {
+      throw new Error(
+        `Only one page can have type="${type}", but found ${pagesWithType.length}:\n` +
+          pagesWithType
+            .map((p) => `- ${p.data.title} (${p.filePath})`)
+            .join("\n"),
+      );
     }
-  });
-
-  // Sort all levels recursively
-  const sortSubmenu = (items: MenuItem[]) => {
-    items.sort((a, b) => a.order - b.order);
-    items.forEach((item) => {
-      if (item.submenu && item.submenu.length > 0) {
-        sortSubmenu(item.submenu);
-      }
-    });
-  };
-
-  const result = Object.values(menu);
-
-  sortSubmenu(result);
-
-  return result;
+  }
 };
 
-const getMenuItems = async (): Promise<MenuItem[]> => {
-  const simplifiedPagesData = await getSimplifiedPageData();
-  const menu = createSortedNestedMenu(simplifiedPagesData);
+const pages = await getCollection("pages");
 
-  return menu;
-};
+validateUniquePageTypes(pages, ["blog", "events", "sermons"]);
 
-export const menu = await getMenuItems();
+export const menu = buildMenu(
+  pages.map((p) => ({
+    id: p.id,
+    label: p.data.title,
+    order: p.data.order,
+    type: p.data.type,
+  })),
+);

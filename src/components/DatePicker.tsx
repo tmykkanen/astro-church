@@ -28,8 +28,8 @@ interface DatePickerProps {
   type: "from" | "to";
   value: string;
   setValue: (v: string) => void;
-  min: CalendarDate;
-  max: CalendarDate;
+  min: CalendarDate | null;
+  max: CalendarDate | null;
 }
 
 const DatePicker: FC<DatePickerProps> = ({
@@ -52,8 +52,8 @@ const DatePicker: FC<DatePickerProps> = ({
         if (!value) return;
 
         let next = parseDate(value);
-        if (next < min) next = min;
-        if (next > max) next = max;
+        if (min && next < min) next = min;
+        if (max && next > max) next = max;
         setValue(next.toString());
       }}
     >

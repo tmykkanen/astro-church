@@ -11,10 +11,10 @@ import StyledText from "@/components/StyledText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Paths, PreacherData, SeriesData, SermonData } from "@/data/types";
-import getOldestDataDate from "@/utils/getOldestDataDate";
 import { queryParsers, queryUrlKeys } from "@/utils/nuqsParsers";
+import { toCalendarDate } from "@/utils/toCalendarDate";
 import { useFilteredData } from "@/utils/useFilteredData";
-import { wait } from "@/utils/wait";
+import { useIsMounted } from "@/utils/useIsMounted";
 
 interface FilteredSermonsProps {
   allSermonData: SermonData[];
@@ -33,7 +33,8 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
     urlKeys: queryUrlKeys,
   });
 
-  const [isMounted, setIsMounted] = useState(false);
+  const { isMounted } = useIsMounted();
+
   const [showFilters, setShowFilters] = useState(false);
   const [hasFilters, setHasFilters] = useState(false);
   const filteredData = useFilteredData(allSermonData);
@@ -44,15 +45,10 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
   };
 
   useEffect(() => {
-    wait(500).then(() => setIsMounted(true));
-    // setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
     setHasFilters(Object.values(queryState).filter((v) => v !== "").length > 0);
   }, [queryState]);
 
-  if (!isMounted) return <SermonsSkeleton />;
+  if (!isMounted) return <Loading />;
 
   return (
     <>
@@ -109,7 +105,11 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
               type="from"
               value={queryState.fromDate}
               setValue={(v) => setQueryState({ fromDate: v })}
-              min={parseDate(getOldestDataDate(allSermonData))}
+              min={
+                allSermonData[0]?.data.date
+                  ? toCalendarDate(allSermonData[0]?.data.date)
+                  : null
+              }
               max={
                 queryState.toDate
                   ? parseDate(queryState.toDate)
@@ -125,7 +125,9 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
               min={
                 queryState.fromDate
                   ? parseDate(queryState.fromDate)
-                  : parseDate(getOldestDataDate(allSermonData))
+                  : allSermonData[0]?.data.date
+                    ? toCalendarDate(allSermonData[0]?.data.date)
+                    : null
               }
               max={today(getLocalTimeZone())}
             />
@@ -141,7 +143,7 @@ const FilteredSermons: FC<FilteredSermonsProps> = ({
   );
 };
 
-const SermonsSkeleton = () => (
+const Loading = () => (
   <>
     <div className="flex flex-col gap-4">
       <Skeleton className="h-8 w-30" />

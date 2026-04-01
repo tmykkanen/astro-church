@@ -1,7 +1,6 @@
 import { Spin as Hamburger } from "hamburger-react";
 import * as React from "react";
 
-import ButtonLink from "@/components/ButtonLink";
 import {
   Drawer,
   DrawerContent,
@@ -10,14 +9,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import type { MenuItem } from "@/data/types";
+import { cn } from "@/lib/utils";
 
-interface MenuItem {
-  path: string;
-  label: string;
-  order: number;
-  type: string | null;
-  submenu: MenuItem[];
-}
+import StyledText from "./StyledText";
+import { buttonVariants } from "./ui/button";
 
 const Sidebar: React.FC<{ menu: MenuItem[] }> = ({ menu }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -55,28 +51,34 @@ const Sidebar: React.FC<{ menu: MenuItem[] }> = ({ menu }) => {
                       <ul className="border-muted ml-4 flex flex-col gap-2 border-l-4">
                         {submenu.map((subMenuItem, index) => (
                           <li key={index}>
-                            <ButtonLink
+                            <StyledText
+                              as={"a"}
                               href={`/${subMenuItem.path}`}
-                              variant="link"
-                              className="text-muted-foreground font-bold uppercase sm:text-xl"
+                              className={cn(
+                                buttonVariants({ variant: "link" }),
+                                "text-muted-foreground font-bold uppercase sm:text-xl",
+                              )}
                               aria-label={`Link to ${subMenuItem.label}`}
                             >
                               {subMenuItem.label}
-                            </ButtonLink>
+                            </StyledText>
                           </li>
                         ))}
                       </ul>
                     </li>
                   ) : (
                     <li key={index}>
-                      <ButtonLink
+                      <StyledText
+                        as={"a"}
                         href={`/${path}`}
-                        variant="link"
-                        className="h-auto px-0 text-3xl font-bold whitespace-normal uppercase sm:text-5xl"
+                        className={cn(
+                          buttonVariants({ variant: "link" }),
+                          "h-auto px-0 text-3xl font-bold whitespace-normal uppercase sm:text-5xl",
+                        )}
                         aria-label={`Link to ${label}`}
                       >
                         {label}
-                      </ButtonLink>
+                      </StyledText>
                     </li>
                   ),
                 )}

@@ -1,6 +1,8 @@
 import { glob } from "astro/loaders";
-import { defineCollection, reference, z } from "astro:content";
-import osisToEn from "bible-reference-formatter";
+import { z } from "astro/zod";
+import { defineCollection, reference } from "astro:content";
+
+import { parseRef } from "./utils/scriptureParsing";
 
 const getSlugFromFilename = (val: string): string => {
   const regexRes = val?.match(/([^/?#]+)$/g);
@@ -9,12 +11,17 @@ const getSlugFromFilename = (val: string): string => {
   return slug;
 };
 
-// const isSunday = (input: Date) => {
-//   const date = new Date(
-//     input.valueOf() + input.getTimezoneOffset() * 60 * 1000,
-//   );
-//   return date.getDay() === 0;
-// };
+const localDate = z.preprocess((val) => {
+  if (val instanceof Date) {
+    return new Date(val.getUTCFullYear(), val.getUTCMonth(), val.getUTCDate());
+  }
+  if (typeof val === "string") {
+    const [y, m, d] = val.split("-").map(Number);
+    if (y && m && d) return new Date(y, m - 1, d);
+    return val;
+  }
+  return val;
+}, z.date());
 
 const siteConfig = defineCollection({
   loader: glob({
@@ -107,27 +114,11 @@ const sermonsCollection = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
-    date: z.date(),
-    // Replace regular date validator with this to limit valid dates to Sundays.
-    // date: z.date().superRefine((val, ctx) => {
-    //   if (!isSunday(val)) {
-    //     const weekday = val.toLocaleDateString("en-US", {
-    //       weekday: "long",
-    //       timeZone: "UTC",
-    //     });
-
-    //     ctx.addIssue({
-    //       code: z.ZodIssueCode.custom,
-    //       message: `Sermon date must be a Sunday, received ${weekday}`,
-    //     });
-    //   }
-    // }),
+    date: localDate,
     series: z.preprocess((val) => {
       return getSlugFromFilename(val as string);
     }, reference("series")),
-    scripture: z
-      .array(z.string().refine((val) => osisToEn("esv-long", val)))
-      .optional(),
+    scripture: z.array(z.string().transform((val) => parseRef(val))).optional(),
     preacher: z.preprocess((val) => {
       return getSlugFromFilename(val as string);
     }, reference("preachers")),
@@ -144,7 +135,7 @@ const seriesCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     image: z.string().optional(),
-    startDate: z.date(),
+    startDate: localDate,
     book: z
       .array(
         z.enum([
@@ -249,7 +240,7 @@ const blogCollection = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: localDate,
     tags: z.array(z.string()),
   }),
 });

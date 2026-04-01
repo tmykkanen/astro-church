@@ -1,9 +1,9 @@
 ---
-import ButtonLink from "@/components/ButtonLink";
 import StyledText from "@/components/StyledText";
 import SubscribeForm from "@/components/SubscribeForm";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
 import { siteConfig } from "@/data/contentCollectionDataFetching";
+import { buttonVariants } from "@/components/ui/button";
 
 const left = siteConfig?.data.footer?.left;
 const form = siteConfig?.data.footer?.form;
@@ -73,14 +73,15 @@ const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
             <div set:html={give.description} />
           </div>
           {give.link && (
-            <ButtonLink
+            <StyledText
+              as={"a"}
               target="_blank"
               rel="noopener noreferrer"
               href={give.link}
-              variant="footer-button"
+              className={buttonVariants({ variant: "footer-button" })}
             >
               Give
-            </ButtonLink>
+            </StyledText>
           )}
         </section>
       )
