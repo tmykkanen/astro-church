@@ -45,7 +45,7 @@ const FallbackComponent = ({ date }: { date: Date }) => {
   const youtube = config?.general?.youtube ?? null;
 
   return (
-    <div className="border-muted flex h-full flex-col items-center justify-center rounded-sm border-2">
+    <div className="border-muted flex h-full flex-col items-center justify-center rounded-sm border-2 px-4">
       <StyledText
         as="h3"
         variant={"heading"}
@@ -64,7 +64,7 @@ const FallbackComponent = ({ date }: { date: Date }) => {
           aria-label="link to search youtube channel"
           className={cn(
             buttonVariants({ variant: "link" }),
-            "text-foreground w-fit pl-0",
+            "text-foreground w-fit pl-0 whitespace-normal",
           )}
         >
           Click here to search our YouTube channel.
